@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
 import { User } from '../models/user.model';
 import { Userdeleted } from '../models/user-deleted.model';
-const API_URL_test = 'http://localhost:3005/api/users/';
+const API_URL_test = 'http://localhost:3006/api/users/';
 const API_URL_cloud= 'https://macompta.com.tn:3002/api/users/'
 @Injectable({ providedIn: 'root' })
 export class UserService {
