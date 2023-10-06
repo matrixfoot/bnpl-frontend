@@ -1,0 +1,37 @@
+
+
+  .container {
+    
+    
+    height: 100%;
+    width: 100%;
+    position: relative;
+    color: black;
+    margin: 0;
+    font-size: 25px;
+  }
+
+  .topleft {
+    position: relative;
+    top: 0;
+    left: 16px;
+  }
+
+  .bottomleft {
+    position: relative;
+    bottom: 0;
+    left: 16px;
+  }
+
+  .middle {
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  hr {
+    margin: auto;
+    width: 40%;
+  }

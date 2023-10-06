@@ -1,0 +1,75 @@
+<body>
+<div class="container-fluid" id="gloal"> 
+<div id="loader" *ngIf="loading"></div>
+
+
+<div class="col col-md-3">			
+  <div class="panel-group" id="accordion">
+   
+    
+    <div class="panel panel-default"*ngIf="reclamations.length>0">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+      reclamations</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <ul class="list-group">
+        <li class="list-group-item"(click)="click1()"><span class="badge">{{reclamationnumber}}</span>Liste des réclamations</li>
+      </ul>
+    </div>
+    </div>
+
+  </div> 
+</div>
+<div class="col col-md-9"id="tabcontainer">
+  <mat-tab-group (selectedTabChange)="onTabClick($event)">
+    <mat-tab label="liste des réclamations" *ngIf="reclamations">
+      <ng-template mat-tab-label style="padding: 3px;">
+        <div class="col" style="margin-left: 20px;">liste des réclamations</div>
+        <span (click)="click2()"><i class="glyphicon glyphicon-remove"></i></span>
+    </ng-template>
+    <div class="col-lg-12" *ngIf="!loading">
+      <div class="team-member" >
+        <div class="users-grid" style="overflow-x:auto;"> 
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">Code <i class="fa fa-sort" aria-hidden="true" [appSort]="reclamations" data-order="desc" data-name="_id" ></i></th>
+              
+              <th scope="col">Date de création <i class="fa fa-sort" aria-hidden="true" [appSort]="reclamations" data-order="desc" data-name="created" ></i></th>  
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let reclamation of reclamations; let i = index">
+        
+              
+              <td>{{reclamation._id}}</td>
+              <td>{{reclamation.created | customDate}}</td>
+              <td>
+              <button type="button" class="btn btn-success" (click)="getNavigation('create-reclamation',reclamation._id)">Consulter</button>                
+              </td>            
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        
+      </div>
+    </div>
+    </mat-tab>
+    </mat-tab-group>
+    </div>
+
+
+
+
+
+
+
+
+
+  
+  
+</div>    
+</body>

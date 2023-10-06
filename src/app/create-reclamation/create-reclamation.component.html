@@ -1,0 +1,104 @@
+<div id="loader" *ngIf="loading"></div>
+<div class="container-fluid">
+    <h2>Détails de la réclamation</h2>
+    <fieldset>
+        <legend>Liste des transactions</legend>
+        <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      <th scope="col" [style.top]="inverseOfTranslation">ID commerçant</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Canal</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Type de transaction</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Montant</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Date expiration</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Date transaction</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Acquéreur</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Emetteur</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">ARN</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Cycle de trasnaction</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Montant compensé</th>
+                      <th scope="col" [style.top]="inverseOfTranslation">Heure trasnaction</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngIf="reclamation">
+                      <tr *ngFor="let comp of reclamation.transactions, let i=index">
+                        <td>{{comp.MERCHANTIDENTIFICATION}}</td>
+                        <td>{{filtervalue(comp.CHANNELTRANSACTIONID)}}</td>
+                    <td>{{filtervalue(comp.TRANSACTIONCODE)}}</td>
+                        <td>{{comp.TRANSACTIONAMOUNT}}</td>
+                        <td>{{comp.CARDEXPIRYDATE}}</td>
+                        <td>{{comp.TRANSACTIONDATE}}</td>
+                        <td>{{comp.ACQUIRERBANKIDENTIFICATION}}</td>
+                        <td>{{comp.ISSUERBANKIDENTIFICATION}}</td>
+                        <td>{{comp.ACQUIRERREFERENCENUMBER}}</td>
+                        <td>{{comp.TRANSACTIONORDERUSAGECODE}}</td>
+                        <td>{{comp.SETTLEMENTAMOUNT}}</td>
+                        <td>{{comp.TRANSACTIONTIME}}</td>
+                      </tr>
+                    </tbody>
+            </table>
+          </div> 
+    </fieldset>
+<fieldset>
+    <legend>Formulaire d'enrichissement de la réclamation</legend>
+    <table class="table table-striped">
+      <thead>
+      <tr>   
+      <th style="width: 50px;">Id</th>         
+      <th>Commentaire</th>
+      <th>Motif</th>
+      <th>Statut</th>
+      <th>Date</th>
+      <th>Document joint</th>
+      </tr>
+      </thead>
+      <tbody *ngIf="reclamation">
+          <tr *ngFor="let item of reclamation.changements; let i = index;">  
+            <td  style="text-align: center;width: 50px;"> {{item.id}}</td>     
+            <td  style="text-align: center;">{{item.commentaire| lowercase}}</td>
+            <td  style="text-align: center;"> {{item.motif| lowercase}}</td>
+            <td  style="text-align: center;"> {{item.statut| lowercase}}</td>
+            <td  style="text-align: center;"> {{item.date| customDate}}</td>
+            <td ><a href="{{item.ficheUrl| lowercase}}" target="_blank"*ngIf="item.ficheUrl">Aperçu document</a></td>    
+            <td colspan="7">
+              <div>
+              <button type="button" class="btn btn-danger btn-sm" (click)="removeammount(item.id)"><span><i class="fa fa-minus-circle"></i></span></button>   
+            </div>
+      </td>     
+          </tr>
+          <tr [formGroup]="reclamationform">
+            <td></td>
+            <td>
+              <div *ngIf="submitted && f.commentaire.errors" class="invalid">
+                <div *ngIf="f.commentaire.errors.required">le commentaire est obligatoire</div>
+            </div>
+                <textarea type="text" class="form-control" formControlName="commentaire" id="commentaire" placeholder=" Entrez commentaire"name="" id="" cols="30" rows="10"></textarea>
+            </td>
+            <td>
+                <input type="text" class="form-control" formControlName="motif" id="motif" placeholder=" Entrez motif" *ngIf="user.usertype!='Clientcomm'&&user.usertype!='Clientpor'">
+            </td>
+            <td>
+              
+            </td>
+            <td>
+             
+            </td>
+            <td>
+              <div class="form-group">
+                <label for="input">Attacher votre document joint</label>                   
+               <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+               <div class="image-preview" *ngIf="imagePreview">
+                 <img [src]="imagePreview" alt="">
+               </div>
+               <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>  
+           </div>
+            </td>
+          </tr>
+      </tbody>
+      </table>
+      <button class="btn btn-success" (click)="onSubmit()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>ajouter commentaire</button>
+      <button class="btn btn-primary" (click)="onSend()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Valider réclamation</button>
+</fieldset>
+
+</div>

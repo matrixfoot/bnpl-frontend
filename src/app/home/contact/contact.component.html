@@ -1,0 +1,86 @@
+<body>
+  
+  <div id="loader" *ngIf="loading"></div>
+<div class="container-fluid"*ngIf="!loading">
+  
+  <div class="section-content">
+    <h1 class="section-header"> <span class="content-header wow fadeIn " data-wow-delay="0.2s" data-wow-duration="2s"> Contatctez Nous</span></h1>
+    <h3>Nous vous garantissons l’excellence, la compétence et l’écoute engagée d’un partenaire</h3>
+  </div>
+  <div class="contact-section" style="text-align: center;">
+  <div class="container-fluid">
+    <form [formGroup]="contactform"(ngSubmit)="onSubmit()"style="text-align: center;">
+      <div class="col-md-6 form-line">
+          <div class="form-group">
+            <label for="lastname">Nom</label>
+            <input type="text" class="form-control" formControlName="lastname" id="lastname" placeholder=" Entrez Votre Nom"
+            [ngClass]="{ 'is-invalid': submitted && f.lastname.errors }"placeholder="entrer votre nom"required>
+            <div *ngIf="submitted && f.lastname.errors" class="invalid-feedback">
+              <div *ngIf="f.lastname.errors.required">Nom Obligatoire</div>
+          </div>         
+          </div>
+          
+          
+          <div class="form-group">
+            <label for="firstname">Prenom</label>
+            <input type="text" class="form-control" formControlName="firstname" id="firstname" placeholder=" Entrez Votre Prenom"
+            [ngClass]="{ 'is-invalid': submitted && f.firstname.errors }"placeholder="entrer votre prenom" required>
+            <div *ngIf="submitted && f.firstname.errors" class="invalid-feedback">
+              <div *ngIf="f.firstname.errors.required">Prénom Obligatoire</div>
+          </div>
+          </div>
+         
+          
+<div class="form-group">
+            <label for="email">Adresse Email</label>
+            <input type="email" class="form-control" formControlName="email"id="email" placeholder=" Entrez Votre Email"
+            [ngClass]="{ 'is-invalid': submitted && f.email.errors }"placeholder="entrer votre email">
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+              <div *ngIf="f.email.errors.required">Email Obligatoire</div>
+              <div *ngIf="f.email.errors.email">Adresse Email non valides</div>
+          </div>
+          </div>
+         
+          <div class="form-group">
+            <label for="mobile">Numéro Mobile</label>
+            <input type="tel" class="form-control" id="mobile" formControlName="mobile"placeholder=" Entrez Votre Numéro Mobile"
+            [ngClass]="{ 'is-invalid': submitted && f.mobile.errors }"placeholder="entrer votre mobile" required>
+            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+              <div *ngIf="f.mobile.errors.required">Numéro Mobile Obligatoire</div>
+          </div>
+          </div>
+         
+          <div class="form-group">
+            <label for="inputfile">Attacher Fichier</label>                   
+           <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" 
+           accept="application/pdf">
+           <div class="image-preview" *ngIf="imagePreview">
+             <img [src]="imagePreview" alt="">
+           </div>
+           <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+       
+       </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for ="description"> Description</label>
+             <textarea  class="form-control" id="description" formControlName="description"placeholder="Rédiger Votre Message"
+             [ngClass]="{ 'is-invalid': submitted && f.description.errors }"placeholder="Présentez vous brièvement"required></textarea>
+                            <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                <div *ngIf="f.description.errors.required">Description Obligatoire</div>
+                            </div>
+          </div>
+        </div>
+          
+
+            <button type="submit" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>  Envoyer Message</button>
+            <button type="reset" class="btn btn-default submit"(click)="onReset()">  Réinitialiser</button>
+            
+          
+       
+    </form>
+  </div>
+</div>
+
+</div>
+</body>

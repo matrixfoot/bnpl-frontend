@@ -1,0 +1,113 @@
+
+
+h2{
+  text-align: center;
+}
+h4{
+text-align: center;
+color: red;
+}
+
+.hidden{
+display: none;
+}
+
+  /* Style the input container */
+  .input-container {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  /* Style the input fields */
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border: 2px solid dodgerblue;
+  }
+  
+  /* Set a style for the submit button */
+  .btn {
+      
+    background-color: dodgerblue;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    width: fit-content;
+    opacity: 0.9;
+    text-align: center;
+    
+    
+  }
+  
+  /* Center the loader */
+#loader {
+position: absolute;
+left: 50%;
+top: 50%;
+z-index: 1;
+width: 120px;
+height: 120px;
+
+border: 16px solid #f3f3f3;
+border-radius: 50%;
+border-top: 16px solid #3498db;
+-webkit-animation: spin 2s linear infinite;
+animation: spin 2s linear infinite;
+margin-top: 200px;
+}
+
+@-webkit-keyframes spin {
+0% { -webkit-transform: rotate(0deg); }
+100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+  .btn:hover {
+    opacity: 1;
+  }
+  fieldset{
+    border: solid 3px #C9C9C9;
+
+  }
+  fieldset legend{
+    color: blue;
+
+  }
+  table{
+    font-family: 'helvetica neue',helvetica,arial,'lucida grande',sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+
+ }
+ table td{
+    border: solid 1px #C9C9C9;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+ }
+ table tr{
+    background-color: #EBEBEB;
+    color: #000000;
+ }
+ table tr:hover{
+    background-color: #FFFFFF;
+    color: #000000;
+ }
+ table th{
+    border: solid 1px #BFBFBF;
+    padding: 10px;
+    color: #000000;
+    background-color: #D4D4D4;
+    text-align: center;
+    font-size: 12px;
+ }

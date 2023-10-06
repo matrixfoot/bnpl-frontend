@@ -1,0 +1,72 @@
+
+
+  <body>
+
+    <h2>Informations générales</h2>
+    
+    <div class="card" *ngIf="user">
+      <img src="../../assets/img_avatar.png" *ngIf="user.civilite=='Monsieur'" else alt="Avatar" style="width:10% ;height:10%">
+      <img src="../../assets/img_avatar2.png" *ngIf="user.civilite!='Monsieur'" alt="Avatar" style="width:10% ;height:10%">
+      <div class="container-fluid">
+        <h4 >Utilisateur connecté:</h4><hr><h4>{{ user.civilite }} <b>  {{ user.firstname }} {{ user.lastname }}</b></h4> 
+        <h4>Nature utilisateur:<b>  {{ user.nature }}</b></h4>
+        <h4>Crée le(heure GMT):<b>  {{ user.created | customDate}}</b></h4>
+        <h4>Dernière modificationle(heure GMT):<b>  {{ user.updated | customDate}}</b></h4>
+        <h4>Numéro mobile:<b>  {{ user.mobile }}</b></h4>
+        <h4>Type utilisateur:<b *ngIf="user.usertype=='Clientpor'"> Client porteur</b><b *ngIf="user.usertype=='Clientcomm'"> Client commerçant</b><b *ngIf="user.usertype=='Metier'">Métier</b>
+        <b *ngIf="user.usertype=='Agence'">Agence</b></h4>
+        <h4 class="hidden">Fonction:<b>  {{ user.fonction }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientcomm'">Raisonsociale:<b>  {{ user.raisonsociale }}</b></h4>
+        <h4 class="hidden">Secteur:<b>  {{ user.secteur }}</b></h4>
+        <h4 class="hidden">Nomsociete:<b>  {{ user.nomsociete }}</b></h4>
+        <h4>Email:<b>  {{ user.email }}</b></h4>
+        <h4>Code client<b>  {{ user.clientcode }}</b></h4>
+        <h4>code banque:<b>  {{ user.banque }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientpor'||user.usertype=='Clientcomm'">Numéro de compte:<b>  {{ user.compte }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientpor'">Numéro de carte:<b>  {{ user.carte }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientcomm'">Numéro d'affiliation:<b>  {{ user.affiliation }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientcomm'">Numéro de terminal:<b>  {{ user.terminal }}</b></h4>
+        <h4 *ngIf="user.ficheUrl">Carte d'identification fiscale: <b><a href="{{user.ficheUrl}}" target="_blank">Aperçu CIF</a></b></h4>    
+      </div>
+      <!-- comunicate with user -->
+  <div class="input-container" id="Check2">
+    <label for="myCheck1">Afficher le formulaire de communication avec le client</label>
+    <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+  </div>
+  <div id="bodycontainer2">
+    <div class="container-fluid"> 
+      <form [formGroup]="contactform"(ngSubmit)="onSubmit()"style="text-align: center;">
+        <div class="form-group">
+          <label for="email">Adresse Email de l'expéditeur</label>
+          <input type="email" class="form-control" formControlName="email"id="email" placeholder=" Entrez Votre Email">
+      </div>
+          <div class="form-group">
+              <label for="email">Adresse Email de l'utilisateur</label>
+              <input type="email" class="form-control" formControlName="emailenvoyea"id="email" placeholder=" Entrez Votre Email">
+          </div>
+            <div class="form-group">
+              <label for ="description"> Description</label>
+               <textarea  class="form-control" id="description" formControlName="description"placeholder="Rédiger Votre Message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default submit"><i class="fa fa-paper-plane" aria-hidden="true"></i>Envoyer Message au client</button>
+            <button type="reset" class="btn btn-default submit"(click)="onReset()">Réinitialiser</button>   
+      </form>
+  </div>
+  </div>
+      <div class="container-fluid">
+      <button type="button" class="btn btn-success" *ngIf="currentUser.role=='admin'" (click)="getNavigation('modify-user-admin', user._id)">Modifier données utilisateur (Admin)</button>
+      <button type="button" class="btn btn-danger"*ngIf="currentUser.role=='admin'"(click)="onDelete()">supprimer utilisateur</button>
+      <button type="button" class="btn btn-secondary"*ngIf="currentUser.role=='admin' && !user.desactive"(click)="onDesactivate()">Désactiver utilisateur</button>
+      <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin'"(click)="ondeletetemporar()">Supprimer Temporairement utilisateur</button>
+    </div>
+      <div class="container-fluid"*ngIf="user.desactive">
+      <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin' && user.desactive.statut===false"(click)="onDesactivate()">Désactiver utilisateur</button>
+      <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin' && !user.standby"(click)="onstandby()">Mettre utilisateur en Standby</button>
+      <button type="button" class="btn btn-info"*ngIf="currentUser.role=='admin' && user.desactive.statut===true"(click)="onactivate()">Activer utilisateur</button>
+      <button type="button" class="btn btn-info"*ngIf="currentUser.role=='admin' && user.standby"(click)="onliberate()">Libérer utilisateur</button>
+      <button type="button" class="btn btn-success"*ngIf="currentUser.role=='admin' && !user.verified"(click)="onverif()">Vérifier manuellement utilisateur</button>
+
+    </div>
+    </div>
+    
+    </body>

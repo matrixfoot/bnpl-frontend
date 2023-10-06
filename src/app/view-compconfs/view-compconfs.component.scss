@@ -1,0 +1,98 @@
+    /* Center the loader */
+    #loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        width: 120px;
+        height: 120px;
+        
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        -webkit-animation: spin 2s linear infinite;
+        animation: spin 2s linear infinite;
+        margin-top: 200px;
+      }
+      cdk-virtual-scroll-viewport {
+        height: 800px;
+      }
+      
+      table {
+          height: 100%;
+          width: 100%;
+          border-collapse: separate;
+          border-spacing: 0;
+          color: #000000;
+          table-layout:auto;
+      
+      
+          thead tr th {
+            height: 59px;
+            border-bottom: 1px solid #d0d0d0;
+            padding: 7px 20px 7px 7px;
+            position: sticky;
+            background-color: #ffffff;
+            font-weight: bold;
+          }
+      
+          tbody tr td {
+            height: 59px;
+            border-bottom: 1px solid #d0d0d0;
+            padding: 7px 20px 7px 7px;
+      
+          }
+        }
+        .modal-dialog
+        {
+         
+          min-width: 800px;
+
+        }
+        .modal-body {
+          overflow-x: auto;
+          overflow-y: auto;
+        }
+        .modal-content{
+          max-height: 700px;
+
+        }
+        body{
+
+          background-color: #00838F;
+      }
+      
+      
+      .advanced{
+      
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 500;
+      }
+      
+      
+      .btn-secondary,
+      .btn-secondary:focus,
+      .btn-secondary:active
+      
+      
+       {
+          color:black;
+          background-color: #00838f !important;
+          border-color: #00838f !important;
+          box-shadow: none;
+          
+      }
+      
+      
+      .advanced{
+      
+          color: #00838f !important;
+      }
+      
+      .form-control:focus{
+          box-shadow: none;
+          border: 1px solid #00838f;
+      
+      
+      }

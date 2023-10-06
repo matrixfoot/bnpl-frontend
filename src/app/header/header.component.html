@@ -1,0 +1,208 @@
+<body>
+  <nav role="navigation" class="primary-navigation">
+    <a  routerLink="home" routerLinkActive="active"class="navbar-brand">
+      <!-- Logo Image -->
+      <img  width="100" height="70" alt="acceuil"  class="d-inline-block align-middle mr-2">
+    </a>
+    <ul>
+      <div id="titre">La plateforme de traitement des réclamations</div>   
+      <li><a routerLink="home" routerLinkActive="active">Acceuil</a></li>  
+
+      <li class="nav-item dropdown me-3 me-lg-1"*ngIf="isLoggedIn&&usertype!='Candidat'" > 
+        <a class="nav-link dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink" role="button"  data-mdb-toggle="dropdown"  aria-expanded="false">Services en ligne  </a>  
+        <ul  class="dropdown-menu dropdown-menu-end"aria-labelledby="navbarDropdownMenuLink"  > 
+          <li><a routerLink="view-compconfs" routerLinkActive="active"class="dropdown-item">Initiation de réclamation</a></li>
+ 
+        <!--<li><a routerLink="admin-board" routerLinkActive="active">Tableau de bord Admin</a></li> 
+          <li><a routerLink="settings"  routerLinkActive="active">Paramêtrage Admin</a></li> -->  
+        </ul>  
+      </li>   
+      
+      <li class="nav-item dropdown me-3 me-lg-1"*ngIf="role=='admin'" >
+        <a class="nav-link dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink"   role="button"  data-mdb-toggle="dropdown"  aria-expanded="false"> Espace admin </a>  
+        <ul  class="dropdown-menu dropdown-menu-end"aria-labelledby="navbarDropdownMenuLink"  >  
+          <li><a routerLink="insert-compconf" routerLinkActive="active"class="dropdown-item">insérer compconf</a></li>  
+          <li><a routerLink="admin-board" routerLinkActive="active"class="dropdown-item">Tableau de bord Admin</a></li> 
+          <li><a routerLink="settings"  routerLinkActive="active"class="dropdown-item">Paramêtrage Admin</a></li> 
+          <li><a routerLink="add-motif" routerLinkActive="active"class="dropdown-item">Gestion des motifs de rejet</a></li>
+        </ul>  
+      </li>   
+
+
+      <li class="nav-item dropdown me-3 me-lg-1"*ngIf="role=='basic'">
+        <a class="nav-link dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink"   role="button"  data-mdb-toggle="dropdown"  aria-expanded="false"> Espace utilisateur </a>  
+        <ul  class="dropdown-menu dropdown-menu-end"aria-labelledby="navbarDropdownMenuLink">  
+          <li><a routerLink="user-board" routerLinkActive="active">Tableau de bord Utilisateur</a></li>    
+
+        </ul>  
+      </li> 
+     
+      <li class="nav-item dropdown me-3 me-lg-1"*ngIf="role=='supervisor'">
+        <a class="nav-link dropdown-toggle hidden-arrow" id="navbarDropdownMenuLink"   role="button"  data-mdb-toggle="dropdown"  aria-expanded="false"> Espace collaborateur </a>  
+        <ul  class="dropdown-menu dropdown-menu-end"aria-labelledby="navbarDropdownMenuLink"  >  
+          <li><a routerLink="supervisor-board" routerLinkActive="active">Tableau de bord Superviseur</a></li>  
+         
+        </ul>  
+      </li> 
+    
+      <li><a href="#">About</a></li>
+      <li><a routerLink="/home/contact"  target=”_blank” routerLinkActive="active">Contact</a></li>
+    
+
+ 
+
+ 
+
+       
+      <li class="nav-item dropdown me-3 me-lg-1">  
+
+        <a  
+
+          class="nav-link dropdown-toggle hidden-arrow"  
+
+          href="#"  
+
+          id="navbarDropdownMenuLink"  
+
+          role="button"  
+
+          data-mdb-toggle="dropdown"  
+
+          aria-expanded="false"  
+
+        >  
+
+          <i class="fa fa-comments fa-lg"></i>  
+
+  
+  
+
+          <span class="badge rounded-pill badge-notification bg-danger"></span>  
+
+        </a>  
+
+        <ul  
+
+          class="dropdown-menu dropdown-menu-end"  
+
+          aria-labelledby="navbarDropdownMenuLink"  
+
+        >  
+
+          <li>  
+
+            <a class="dropdown-item" href="#">Some news</a>  
+
+          </li>  
+
+          <li>  
+
+            <a class="dropdown-item" href="#">Another news</a>  
+
+          </li>  
+
+          <li>  
+
+            <a class="dropdown-item" href="#">Something else here</a>  
+
+          </li>  
+
+        </ul>  
+
+      </li>   
+      
+
+      <li class="nav-item dropdown me-3 me-lg-1">  
+
+        <a  
+
+          class="nav-link dropdown-toggle hidden-arrow"  
+          id="navbarDropdownMenuLink"  
+
+          role="button"  
+
+          data-mdb-toggle="dropdown"  
+
+          aria-expanded="false"  
+
+        >  
+
+          <i class="fa fa-user-circle"></i>  
+
+          <span class="badge rounded-pill badge-notification bg-danger"></span>  
+
+        </a>  
+
+        <ul  
+
+          class="dropdown-menu dropdown-menu-end"  
+
+          aria-labelledby="navbarDropdownMenuLink"  
+
+        >  
+
+        <li class="nav-item me-3 me-lg-1">  
+
+          <a class="nav-link d-sm-flex align-items-sm-center" routerLink="profil"  *ngIf="isLoggedIn" routerLinkActive="active">  
+  
+            <img  
+  
+              src="https://mdbcdn.b-cdn.net/img/new/avatars/1.webp"  
+  
+              class="rounded-circle"  
+  
+              height="22"  
+  
+              alt="Black and White Portrait of a Man"  
+  
+              loading="lazy"  
+  
+            />  
+  
+            <strong class="d-none d-sm-block ms-1">{{username}} {{lastname}}</strong>  
+  
+          </a>  
+  
+        </li>   
+
+        <li class="nav-item me-3 me-lg-1">  
+
+          <a href class="nav-link" id="logoutbutton"*ngIf="isLoggedIn" (click)="logout()"routerLink="login" routerLinkActive="active" > <span class="glyphicon glyphicon-log-in">Déconnexion</span>   
+  
+          </a>  
+  
+        </li>  
+
+        <li class="nav-item me-3 me-lg-1">  
+
+          <a class="nav-link" href class="nav-link" *ngIf="!isLoggedIn" routerLink="signup" routerLinkActive="active" > <span class="glyphicon glyphicon-user">Inscription Gratuite</span>  
+  
+          </a>  
+  
+        </li>  
+  
+   
+  
+   
+  
+        <li class="nav-item me-3 me-lg-1">  
+  
+          <a href class="nav-link" *ngIf="!isLoggedIn" routerLink="login" routerLinkActive="active" > <span class="glyphicon glyphicon-log-in">Connexion</span>   
+  
+          </a>  
+  
+        </li>   
+
+        </ul>  
+
+      </li>  
+
+
+
+    
+    </ul>
+  
+
+    
+  </nav>
+</body>

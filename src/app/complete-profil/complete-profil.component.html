@@ -1,0 +1,422 @@
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+</head>
+<body>
+
+
+<div class="container-fluid">
+<div id="loader" *ngIf="loading"></div>
+
+<div class="container-fluid" *ngIf="!loading"> 
+<form  class="well form-horizontal" [formGroup]="userForm">
+  <h2>Formulaire De Modification Des Données Utilisateurs</h2>
+  <div *ngIf="!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'|| user.regimefiscalimpot=='Autre/null'
+  || !user.regimefiscalimpot && user.nature=='Personne Physique' || !user.matriculefiscale|| !user.adresseactivite || !user.codepostal">
+ <h4 *ngIf="user.usertype=='Client'"> veuillez renseigner les champs obligatoires (*)</h4>
+</div>
+<fieldset>
+  <legend>Informations générales</legend>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <div class="input-container" style="width: 300px;">
+            <label class="col-md-3 control-label">Nature:</label>
+            <div class="col-md-9 inputGroupContainer">
+              <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <select  class="input-field" placeholder="Entrer nature utilisateur" id="nature" formControlName="nature" name="nature" >
+                  <option hidden >Entrer la nature de l'utilisateur</option>
+                  <option value="Personne Physique">Personne Physique</option>
+                  <option value="Personne Morale">Personne Morale</option>
+                </select>
+                </div>
+            </div>
+         </div>
+</td>
+ 
+      </tr>
+   <!--   <tr>
+        <td>
+          <div class="input-container"*ngIf="user.usertype == 'Client'">
+            <label class="col-md-4 control-label">Nature D'activité</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <select  class="input-field"  placeholder="Entrer Votre Nature Activité" id="activitynature"(change)="update0($event)"  [(ngModel)]="optionValue"formControlName="activitynature" name="activitynature" >
+                  <option hidden [value]="currentuser.natureactivite">{{currentuser.natureactivite}}</option>
+                  <option value=""></option>
+                  <option *ngFor="let natactivite of natureactivites" [value]="natactivite">
+                            {{natactivite}}
+                              </option>
+                  <option value="Autre">Autre</option>
+                  </select>
+                </div>
+            </div>
+         </div>
+         <div class="input-container"*ngIf="optionValue == 'Autre'">
+            <label class="col-md-4 control-label">Nature D'activité</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input class="input-field" type="text" placeholder="Renseigner votre nature d'activité" id="selectactivitynature" formControlName="selectactivitynature">
+              </div>
+            </div>
+         </div>
+        </td>
+        <td>
+          <div class="input-container"*ngIf="user.usertype == 'Client'">
+            <label class="col-md-4 control-label">Activité</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group">
+                  <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-list"></i></span>
+                  <select  class="input-field" placeholder="Entrer Votre Activité" id="activity" style="width: 150px;"[(ngModel)]="option1Value"(click)="sort()"(change)="update($event)"formControlName="activity" name="activity" >
+                    <option hidden [value]="user.activite">{{user.activite}}</option>
+                    <option value=""></option>
+                    <option *ngFor="let activite of activites" [value]="activite">
+                      {{activite}}
+                    </option>
+                    <option value="Autre"*ngIf="optionValue!='association et syndic'" >Autre</option>
+                    </select>
+               </div>
+            </div>
+         </div>
+         <div class="input-container"*ngIf="option1Value == 'Autre'">
+          <label class="col-md-4 control-label">Activité</label>
+          <div class="col-md-8 inputGroupContainer">
+             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input class="input-field" type="text" placeholder="Renseigner votre activité" id="selectactivity" formControlName="selectactivity">
+            </div>
+          </div>
+       </div>
+        </td>
+        <td>
+          <div class="input-container"*ngIf="user.usertype == 'Client'">
+            <label class="col-md-4 control-label"> Date d'effet</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group">
+                  <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-asterisk" style="color: red;"></i></span>
+                  <input class="input-field" type="date" placeholder="Modifier Votre Date d'effet" [ngClass]="{ 'is-invalid': submitted && f.dateeffeterrors }"id="dateeffet" formControlName="dateeffet">
+                </div>
+                <p *ngIf="user.dateeffet">{{user.dateeffet}}</p>
+            </div>
+         </div> 
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="input-container"*ngIf="user.usertype == 'Client'">
+            <label class="col-md-4 control-label">Sous-Activité</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <select  class="input-field" placeholder="Entrer Votre Sous-Activité" id="underactivity" [(ngModel)]="option2Value"(click)="sort()"(change)="update2($event)"formControlName="underactivity" name="underactivity" >
+                  <option hidden [value]="user.sousactivite">{{user.sousactivite}}</option>
+                <option value=""></option>
+                <option *ngFor="let sousactivite of sousactivites" [value]="sousactivite">
+                  {{sousactivite}}
+              </option>
+                <option  value="Autre">Autre</option>
+                </select>
+                </div>
+            </div>
+         </div>
+         <div class="input-container"*ngIf="option2Value == 'Autre'">
+          <label class="col-md-4 control-label">Sous-Activité</label>
+          <div class="col-md-8 inputGroupContainer">
+             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+              <input class="input-field" type="text" placeholder="Renseigner votre Sous-Activité" id="selectunderactivity" formControlName="selectunderactivity">
+            </div>
+          </div>
+       </div>
+       </td>
+       <td>
+       <div class="input-container"*ngIf="user.usertype == 'Client'">
+        <label class="col-md-4 control-label">Spécialité</label>
+        <div class="col-md-8 inputGroupContainer">
+           <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+            <select  class="input-field" placeholder="Entrer Votre spécialité" id="specialite"formControlName="specialite" (click)="sort()"(change)="update3($event)"name="specialite" >
+              <option hidden [value]="user.specialite">{{user.specialite}}</option>
+              <option value=""></option>
+              <option *ngFor="let specialite of specialites" [value]="specialite">
+                {{specialite}}
+              </option>
+              <option hidden value="Autre">Autre</option>
+              </select>
+            </div>
+        </div>
+      </div>
+      </td>
+      <td>
+      <div class="input-container"*ngIf="user.usertype == 'Client'">
+      <label class="col-md-4 control-label">Sous-Spécialité</label>
+      <div class="col-md-8 inputGroupContainer">
+         <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+          <select  class="input-field" placeholder="Entrer Votre Sous-Spécilaité" id="sousspecialite" formControlName="sousspecialite" name="sousspecialite" >
+            <option hidden [value]="user.sousspecialite">{{user.sousspecialite}}</option>
+            <option *ngFor="let sousspecialite of sousspecialites" [value]="sousspecialite">
+              {{sousspecialite}}
+            </option>
+            <option value=""></option>
+            <option hidden value="Autre">Autre</option>
+            </select>
+          </div>
+      </div>
+      </div>
+        </td>
+      </tr>
+      <tr>
+        <td >
+          <div class="input-container"*ngIf="user.usertype == 'Client' && userForm.controls['nature'].value=='Personne Physique'">
+            <label class="col-md-4 control-label">Régime Fiscal En Matière D'impôts Directs</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <select  class="input-field" placeholder="Entrer Votre régime fiscal en matière d'impôts directs" id="fiscalimpot" [(ngModel)]="option3Value"formControlName="fiscalimpot" name="fiscalimpot" >
+                  <option hidden [value]="user.regimefiscalimpot">{{user.regimefiscalimpot}}</option>
+                  <option value="Réel">Réel</option>
+                  <option value="Forfait D'assiette">Forfait D'assiette</option>
+                  <option value="Non soumis" *ngIf="userForm.controls['activitynature'].value!='Profession Libérale'">Non soumis</option>
+                  <option hidden value="Autre">Autre</option>
+                  </select>
+                </div>
+            </div>
+         </div>
+        
+      
+        
+          <div class="input-container"*ngIf="option3Value == 'Autre'">
+            <label class="col-md-4 control-label">Régime Fiscal En Matière D'impôts Directs</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input class="input-field" type="text" placeholder="Renseigner régime fiscal en matière d'impôts directs" id="selectfiscalimpot" formControlName="selectfiscalimpot">
+              </div>
+            </div>
+         </div>
+        </td>
+       
+        <td>
+          <div class="input-container"*ngIf="user.usertype == 'Client'">
+            <label class="col-md-4 control-label">Régime Fiscal En Matière de TVA</label>
+            <select  class="input-field" placeholder="Entrer Votre spécialité" id="specialite"formControlName="fiscaltvaassobli" (click)="sort()"name="specialite" >
+              <option hidden [value]="user.regimefiscaltva">{{user.regimefiscaltva}}</option>
+              <option value=""></option>
+              <option *ngFor="let fiscaltvaassobli of fiscaltvaassoblis" [value]="fiscaltvaassobli">
+                {{fiscaltvaassobli}}
+              </option>
+              <option hidden value="Autre">Autre</option>
+              </select>
+          </div>
+        </td>
+      </tr>-->
+    
+    </tbody>
+  </table>
+</fieldset>
+<fieldset>
+  <legend>Informations supplémentaires</legend>
+  <table>
+    <tbody>
+      <tr>
+        <td>
+          <div class="input-container">
+            <label class="col-md-3 control-label">Numéro de compte:</label>
+            <div class="col-md-9 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+                <input class="input-field" type="text" placeholder="Renseigner la matricule cnss" id="selectfiscalimpot" formControlName="compte">
+              </div>
+            </div>
+         </div>
+</td>
+<td>
+  <div class="input-container">
+    <label class="col-md-3 control-label">code banque:</label>
+    <div class="col-md-9 inputGroupContainer">
+       <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input class="input-field" type="text" placeholder="Renseigner la matricule cnss" id="selectfiscalimpot" formControlName="banque">
+      </div>
+    </div>
+ </div>
+</td>
+<td>
+  <div class="input-container">
+    <label class="col-md-3 control-label">Numéro de carte:</label>
+    <div class="col-md-9 inputGroupContainer">
+       <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input class="input-field" type="text" placeholder="Renseigner la matricule cnss" id="selectfiscalimpot" formControlName="carte">
+      </div>
+    </div>
+ </div>
+</td>
+</tr>
+<tr>
+
+<td>
+  <div class="input-container">
+    <label class="col-md-3 control-label">Numéro d'affiliation:</label>
+    <div class="col-md-9 inputGroupContainer">
+       <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input class="input-field" type="text" placeholder="Renseigner la matricule cnss" id="selectfiscalimpot" formControlName="affiliation">
+      </div>
+    </div>
+ </div>
+</td>
+<td>
+  <div class="input-container">
+    <label class="col-md-3 control-label">Numéro terminal:</label>
+    <div class="col-md-9 inputGroupContainer">
+       <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input class="input-field" type="text" placeholder="Renseigner la matricule cnss" id="selectfiscalimpot" formControlName="terminal">
+      </div>
+    </div>
+ </div>
+</td>
+</tr>
+
+</tbody>
+</table>
+<!--<td>
+  <div class="input-container">
+    <label class="col-md-3 control-label">Taux de la charge patronale:</label>
+    <div class="col-md-7 inputGroupContainer">
+      <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input class="input-field" type="text" placeholder="Renseigner régime fiscal en matière d'impôts directs" id="selectfiscalimpot" formControlName="tauxchargepatronale">
+      </div>
+   </div>
+    </div>
+</td>
+<td>
+  <div class="input-container">
+    <label class="col-md-3 control-label">Taux de l'accident de travail:</label>
+    <div class="col-md-8 inputGroupContainer">
+      <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input class="input-field" type="text" placeholder="Renseigner régime fiscal en matière d'impôts directs" id="selectfiscalimpot" formControlName="tauxaccidenttravail">
+      </div>
+   </div>
+    </div>
+</td>
+<td>
+  <div class="input-container">
+    <label class="col-md-3 control-label">Régime horaire:</label>
+    <div class="col-md-8 inputGroupContainer">
+      <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+        <input class="input-field" type="text" placeholder="Renseigner régime fiscal en matière d'impôts directs" id="selectfiscalimpot" formControlName="regimehoraire">
+      </div>
+   </div>
+    </div>
+</td>
+      </tr> --> 
+      <table>
+        <tbody>
+          <tr >
+            <td >
+              <div class="input-container">
+                  <label for="choice" class="col-md-8 control-label"> Avez vous une matricule fiscale:</label>    
+                  <div id="block4"><input type="checkbox"  id="choice4"class="input-field"formControlName="matfiscale">Oui</div>  
+          </div>
+            </td>  
+            <td >
+              <div class="input-container"*ngIf="user.matriculefiscale!=null||userForm.controls['matfiscale'].value==true">
+              <label class="col-md-4 control-label"> Carte d'identification fiscale</label>
+              <div class="col-md-8 inputGroupContainer">
+                 <div class="input-group">
+                    <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-asterisk" style="color: red;"></i></span>
+                    <input type="file" style="border: 1px solid red" #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+                    <b><a href="{{user.ficheUrl}}" target="_blank">Aperçu CIF</a></b>
+                  </div>
+              </div>
+              </div>
+            </td>
+            <td >
+        <div *ngIf="submitted && f.fiscalmat.errors" class="invalid-feedback" style="color:red;float: right;">
+        <div *ngIf="f.fiscalmat.errors.pattern">Veuillez saisir les 7 premiers chiffres</div>
+        <div *ngIf="f.fiscalmat.errors.length">Saisissez uniquement 7 lettres</div>
+        <div *ngIf="f.fiscalmat.errors.required">1ère partie obligatoire</div>
+        </div>
+        <hr *ngIf="submitted && f.fiscalmat.errors">
+        <div *ngIf="submitted && f.fiscalmatletter.errors" class="invalid-feedback" style="color:red;float: right;">
+        <div *ngIf="f.fiscalmatletter.errors.pattern">veuillez saisir la lettre qui suit les chiffres</div>
+        <div *ngIf="f.fiscalmatletter.errors.length">Saisissez uniquement 1 lettre</div>
+        <div *ngIf="f.fiscalmatletter.errors.required">2ème partie obligatoire</div>
+        </div>
+        <hr *ngIf="submitted && f.fiscalmatletter.errors">
+        <div *ngIf="submitted && f.fiscalmatnumbers.errors" class="invalid-feedback" style="color:red;float: right;">
+        <div *ngIf="f.fiscalmatnumbers.errors.pattern">veuillez saisir les 3 derniers chiffres</div>
+        <div *ngIf="f.fiscalmatnumbers.errors.length">Saisissez uniquement 3 chiffres</div>
+        <div *ngIf="f.fiscalmatnumbers.errors.required">3ème partie obligatoire</div>
+        </div>
+        <div class="input-container"*ngIf="user.matriculefiscale!=null||userForm.controls['matfiscale'].value==true">
+        <label class="col-md-4 control-label">Matricule Fiscale</label>
+        <div class="col-md-8 inputGroupContainer">
+           <div class="input-container">
+            <input class="input-field" style="width: 25%;"type="text"  id="fiscalmat" formControlName="fiscalmat"
+            [ngClass]="{ 'is-invalid': submitted && f.fiscalmat.errors }">
+            
+            <input class="input-field" style="width: 10%;" type="text"  id="fiscalmatletter" formControlName="fiscalmatletter"
+            [ngClass]="{ 'is-invalid': submitted && f.fiscalmatletter.errors }">
+            <p>/</p>
+            <input class="input-field" type="text" style="width: 12%;" id="fiscalmatinchanged" formControlName="fiscalmatinchanged"
+            [ngClass]="{ 'is-invalid': submitted && f.fiscalmatinchanged.errors }">
+            <p>/</p>
+            <input class="input-field" type="text" style="width: 12%;" id="fiscalmatinchanged2" formControlName="fiscalmatinchanged2"
+            [ngClass]="{ 'is-invalid': submitted && f.fiscalmatinchanged2.errors }">
+            <p>/</p>
+            <input class="input-field" type="text" style="width: 10%;" id="fiscalmatnumbers" formControlName="fiscalmatnumbers"
+            [ngClass]="{ 'is-invalid': submitted && f.fiscalmatnumbers.errors }" default='000'>
+              </div>
+        </div>
+        </div>
+          </td>
+           </tr>
+        </tbody>
+      </table>
+
+</fieldset>
+  <fieldset>
+    <legend> Informations Spécifiques</legend>
+  <!--<table>
+      <tbody>
+        <tr>
+          <td>
+            <div class="input-container"*ngIf="natsociete">
+                <label for="choice" class="col-md-8 control-label"> Etes vous totalement exportateur:</label>    
+                <div id="block1" *ngIf="natsociete"><input type="checkbox"  id="choice"class="input-field"formControlName="export">Oui</div>      
+              </div>
+          </td>
+          <td>
+            <div class="input-container">
+            <label class="col-md-4 control-label"*ngIf="tot||userForm.controls['export'].value==true">Déclaration d'investissement</label>
+                <div class="col-md-8 inputGroupContainer"*ngIf="tot||userForm.controls['export'].value==true">
+                   <div class="input-group">
+                      <span class="input-group-addon" style="max-width: 100%;"><i class="glyphicon glyphicon-asterisk" style="color: red;"></i></span>
+                      <input type="file" style="border: 1px solid red" #filePicker (change)="onImagePick2($event)" class="form-control" accept="application/pdf">
+                      <b><a href="{{user.ficheUrl2}}" target="_blank">Aperçu DI</a></b>
+                    </div>
+                </div>
+            </div>
+          </td>
+          <td>
+            <div class="input-container"*ngIf="natsociete">
+                <label for="choice" class="col-md-8 control-label"> Avez vous une matricule CNSS:</label>    
+                <div id="block3"><input type="checkbox"  id="choice3"class="input-field"formControlName="salaire">Oui</div>  
+        </div>
+          </td>
+       
+        </tr>
+      </tbody>
+      </table>-->  
+  </fieldset>
+
+
+
+
+
+
+
+
+  <button class="btn btn-success" (click)="onSubmit()" id="input12">Valider </button>
+</form>
+<p>{{ errormsg }}</p>
+<div class="alert alert-success" *ngIf="isSuccessful">
+  Modificaion effectuée avec succès!!
+</div>
+</div>
+</div>
+</body>

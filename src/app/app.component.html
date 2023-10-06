@@ -1,0 +1,39 @@
+<div class="wrapper">
+  <app-alert></app-alert>
+  <app-header></app-header>
+  <div bsModal #childModal="bs-modal" class="modal fade" tabindex="-1"
+       role="dialog" aria-labelledby="dialog-child-name">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="dialog-child-name" class="modal-title pull-left">vous avez été inactif pendant une longue durée! vous allez être déconnecté au bout de 2min!<span *ngIf="120>countdown">{{countdown}}</span> </h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="hideChildModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           {{idleState}}
+          <div class="row mrgbtm">
+            <div class="col-md-6">
+                <button type="button" (click)="logout()" class="btn btn-danger">Se déconnecter</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" (click)="stay()" class="btn btn-success">Rester connecté</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="routoutlet">
+    <div class="container-fluid">
+      <div class="row flex-nowrap">
+       
+          <div class="col py-3">
+            <router-outlet></router-outlet>
+          </div>
+      </div>
+  </div>
+  </div>
+  <app-footer></app-footer>
+</div>

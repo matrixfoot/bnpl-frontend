@@ -1,0 +1,274 @@
+
+  <body onload="document.getElementById('id01').style.display='block'">
+    <div id="containid" class="w3-container" >
+      
+      <div id="id01" class="w3-modal">
+        
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+    
+          <div class="w3-center"><br>
+            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Close Modal">&times;</span>
+            <img src="../../assets/home_background.jpg" alt="Avatar" style="width:30%" class="w3-circle w3-margin-top">
+            <h4>
+              <br>Très heureux de votre visite, nous vous remercions d'avoir choisi notre cabinet et nous vous souhaitons une très bonne expérience.
+            </h4>
+          </div>
+    
+          <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+            <button onclick="document.getElementById('id01').style.display='none'" type="button" class="w3-button w3-red" id="buttonwelcome">Bienvenue!</button>
+            
+          </div>
+    
+        </div>
+      </div>
+    </div>
+    <carousel [noWrap]="noWrapSlides" [showIndicators]="showIndicator"*ngIf="carousels"  >
+      <slide *ngFor="let item of sortedcarousels; let index=index">
+         <img src="../../assets/carousel background.jpg" alt="image slide" style="display: block; width: 100%;height:180px;border-radius: 55px 55px 55px 55px">
+         <div class="carousel-caption">
+          <h4><span style="color: red;">{{item.titre}}</span> <br><span>{{item.commentaire}}</span><br><a class="btn btn-primary"*ngIf="item.description" (click)="voirdetail('view-carousel',item._id)" style="bottom: 0;">Lire Plus</a></h4>
+        </div>
+      </slide>
+   </carousel>
+    <!--<div class="actualitycarousel">  
+      <div  id="myCarousel" class="carousel slide text-center" data-ride="carousel"*ngIf="carousels">
+           Indicators 
+          <ol class="carousel-indicators" >
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel"*ngFor="let item of sortedcarousels.slice(1);let index = index" [attr.data-slide-to]="index"></li>
+          </ol>
+      
+          <! Wrapper for slides 
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <h4><span style="color: red;">"{{carousels[0].titre}}"</span><br><span>{{carousels[0].commentaire}}</span><br><a class="btn btn-primary" *ngIf="carousels[0].description"(click)="getNavigation('view-carousel',carousels[0]._id)">Lire Plus</a></h4>
+            </div>
+            <div class="item"*ngFor="let item of sortedcarousels.slice(1);let index = index">
+              <h4><span style="color: red;">"{{item.titre}}"</span> <br><span>{{item.commentaire}}</span><br><a class="btn btn-primary"*ngIf="item.description" (click)="getNavigation('view-carousel',item._id)" style="bottom: 0;">Lire Plus</a></h4>
+            </div>
+          </div>
+      
+          <! Left and right controls
+          <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Précédent</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Suivant</span>
+          </a>
+        </div>
+      </div>-->
+
+    <!-- <section class="section1">
+      <div class="general-title">
+        <h2>SERVICES EN LIGNE</h2>
+        <hr>
+      </div>
+    <div class="container-fluid">
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-left">
+              <a href="#" class=""> <i class="active dm-icon fa fa-bars fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+              <h4>Responsive Layout</h4>
+              <hr>
+            </div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since..</p>
+          </div>
+           service-icon 
+        </div>
+         servicebox 
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-bottom">
+              <a href="#" class=""> <i class="active dm-icon fa fa-laptop fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+              <h4>Creative Design</h4>
+              <hr>
+            </div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since..</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-sm-4">
+        <div class="servicebox text-center">
+          <div class="service-icon">
+            <div class="dm-icon-effect-1" data-effect="slide-right">
+              <a href="#" class=""> <i class="active dm-icon fa fa-book fa-3x"></i> </a>
+            </div>
+            <div class="servicetitle">
+              <h4>Easy to Setup</h4>
+              <hr>
+            </div>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry"s standard dummy text ever since..</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>-->
+  
+  
+  <!-- Container (Services Section) 
+  <div class="container-fluid text-center">
+      <h2>Services en ligne</h2>
+      <br>
+      <div class="row">
+        <a href="declare-comptabilite">
+          <div class="col-sm-3">
+          <img src="../../assets/accounts.png" style="width:20% ;height:20%">
+          <h4>Comptabilité</h4>
+          <p>Tenez votre comptabilité</p>
+        </div>
+      </a>
+      <a href="declare-fiscality">
+        <div class="col-sm-3">
+          <img src="../../assets/budget.png"style="width:20% ;height:20%">
+          <h4>Fiscalité</h4>
+          <p>Etablissez vos déclarations fiscales</p>
+        </div>
+      </a>
+      <a routerLink="Documentation">
+        <div class="col-sm-3">
+          <img src="../../assets/salary.png"style="width:20% ;height:20%">
+          <h4>Paie</h4>
+          <p>Préparez vos fiches de paie</p>
+        </div>
+      </a>
+      <a routerLink="Documentation">
+        <div class="col-sm-3" >
+          <img src="../../assets/operator.png"style="width:20% ;height:20%">
+          <h4>Conseil & Consultation</h4>
+          <p>Demandez un conseil</p>
+        </div>
+      </a>
+      </div
+      
+      
+          
+      
+    </div>>-->
+    
+   
+    
+  
+  <!-- Container (expertise areas section) -->
+  <!--<div id="expertisecont" class="container-fluid text-center">
+    <h2>Domaines de compétences</h2>
+    <h4>Nos interventions se rapportent à tous les services dans les divers domaines de gestion des entreprises dont notamment :</h4>
+    <br>
+    <div class="row">
+      <a routerLink="Documentation"><div class="col-sm-4">
+        <span class="glyphicon glyphicon-list-alt logo-small"></span>
+        <h4>création</h4>
+        <p>Accompagnement à la création d’entreprise</p>
+      </div>
+    </a>
+    <a routerLink="Documentation">
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-list-alt logo-small"></span>
+        <h4>Assistance</h4>
+        <p>Assistance comptable, juridique, fiscale et sociale</p>
+      </div>
+    </a>
+    <a routerLink="Documentation">
+      <div class="col-sm-4">
+        <span class="glyphicon glyphicon-list-alt logo-small"></span>
+        <h4>Commissariat</h4>
+        <p>Commissariat aux comptes</p>
+      </div>
+    </a>
+    </div>
+    <br><br>
+    <div class="row">
+        <a routerLink="Documentation">
+      <div class="col-sm-4" >
+        <span class="glyphicon glyphicon-list-alt logo-small"></span>
+        <h4>Conseil</h4>
+        <p>Conseil en gestion et en choix d’investissement</p>
+      </div>
+    </a>
+      <a routerLink="Documentation">
+    <div class="col-sm-4" >
+      <span class="glyphicon glyphicon-list-alt logo-small"></span>
+      <h4>Organisation</h4>
+      <p>Organisation et mise en place de manuels de procédures et de systèmes d’information</p>
+    </div>
+  </a>
+  <a routerLink="Documentation">
+    <div class="col-sm-4" >
+      <span class="glyphicon glyphicon-list-alt logo-small"></span>
+      <h4>Commissariat aux apports</h4>
+      <p>Commissariat aux apports et évaluation</p>
+    </div>
+  </a>
+  </div>
+  <div class="row">
+    <a routerLink="Documentation">
+  <div class="col-sm-4" >
+    <span class="glyphicon glyphicon-list-alt logo-small"></span>
+    <h4>Liquidation</h4>
+    <p></p>
+  </div>
+  </a>
+  <a routerLink="Documentation">
+  <div class="col-sm-4" >
+  <span class="glyphicon glyphicon-list-alt logo-small"></span>
+  <h4>Etudes</h4>
+  <p>Etudes</p>
+  </div>
+  </a>
+  <a routerLink="Documentation">
+  <div class="col-sm-4" >
+  <span class="glyphicon glyphicon-list-alt logo-small"></span>
+  <h4>Formation</h4>
+  <p>Formation</p>
+  </div>
+  </a>
+  </div>
+  </div>-->
+  
+  <!-- Container (Portfolio Section) -->
+  <!--<div class="container-fluid_2 text-center bg-grey">
+    <h2>Références</h2><br>
+    <div class="row text-center">
+      <div class="col-sm-4">
+        <div class="rounded-circle">
+          <img src="../../assets/assad client.png" alt="ASSAD" >
+          <p><strong>ASSAD</strong></p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="rounded-circle">
+          <img src="" alt="Autre partenaire" width="400" height="300">
+          <p><strong>Autre partenaire</strong></p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="rounded-circle">
+          <img src="" alt="Autre partenaire" width="400" height="300">
+          <p><strong>autre partenaire</strong></p>
+        </div>
+      </div>
+  </div>
+  </div>
+-->
+  <div id="contactid">
+  <router-outlet></router-outlet>
+  </div>
+  
+   
+      
+      
+      
+  
+  
+      
+    </body>

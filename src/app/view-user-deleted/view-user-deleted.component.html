@@ -1,0 +1,45 @@
+
+
+  <body>
+
+    <h2>Informations générales</h2>
+    
+    <div class="card">
+      <img src="../../assets/img_avatar.png" *ngIf="userdeleted.civilite=='Monsieur'" else alt="Avatar" style="width:10% ;height:10%">
+      <img src="../../assets/img_avatar2.png" *ngIf="userdeleted.civilite!='Monsieur'" alt="Avatar" style="width:10% ;height:10%">
+      <div class="container-fluid">
+        <h4 >Utilisateur connecté:</h4><hr>
+        <h4>Crée le(heure GMT):<b>  {{ userdeleted.created }}</b></h4>
+        <h4>Dernière modification  le(heure GMT):<b>  {{ userdeleted.updated }}</b></h4>
+        <h4>Vérifié le(heure GMT):<b>  {{ userdeleted.verified }}</b></h4>
+        <h4 *ngIf="userdeleted.desactive">Statut du compte:<b *ngIf="userdeleted.desactive.statut===false">Compte actif</b><b *ngIf="userdeleted.desactive.statut===true">Compte Inactif</b></h4>
+        
+        <h4 *ngIf="userdeleted.desactive">date du statut(heure GMT):<b>  {{ userdeleted.desactive.date }}</b></h4>
+        <h4>Mot de passe regénéré le(heure GMT):<b>  {{ userdeleted.resetToken }}</b></h4>
+        <h4>{{ userdeleted.civilite }} <b>  {{ userdeleted.firstname }} {{ userdeleted.lastname }}</b></h4> 
+        <h4>Mobile:<b>  {{ userdeleted.mobile }}</b></h4>
+        <h4>Type utilisateur:<b>  {{ userdeleted.userdeletedtype }}</b></h4>
+        <h4>Fonction:<b>  {{ userdeleted.fonction }}</b></h4>
+        <h4>Raisonsociale:<b>  {{ userdeleted.raisonsociale }}</b></h4>
+        <h4>Secteur:<b>  {{ userdeleted.secteur }}</b></h4>
+        <h4>Nomsociete:<b>  {{ userdeleted.nomsociete }}</b></h4>
+        <h4>Email:<b>  {{ userdeleted.email }}</b></h4>
+        <h4>Code client:<b>  {{ userdeleted.clientcode }}</b></h4>
+        <h4>Nature Activité:<b>  {{ userdeleted.natureactivite }}</b></h4>
+        <h4>Activité:<b>  {{ userdeleted.activite }}</b></h4>
+        <h4>Sous-Activité:<b>  {{ userdeleted.sousactivite }}</b></h4>
+        <h4>Régime fiscal en matières d'impôts directs:<b>  {{ userdeleted.regimefiscalimpot }}</b></h4>
+        <h4>Régime fiscal en matières de TVA:<b>  {{ userdeleted.regimefiscaltva }}</b></h4>
+        <h4>Matricule Fiscale:<b>  {{ userdeleted.matriculefiscale }}</b></h4>
+        <h4>Adresse D'activité:<b>  {{ userdeleted.adresseactivite}}</b></h4>
+        <h4>Date d'effet:<b>  {{ userdeleted.dateeffet | customDate}}</b></h4>
+        <h4>Code Postal:<b>  {{ userdeleted.codepostal }}</b></h4>
+      </div>
+      <div class="btn-class">
+     
+      <button type="button" class="btn btn-primary"*ngIf="currentUser.role=='admin'"(click)="onrestaure()">Restaurer Utilisateur</button>
+    </div>
+      
+    </div>
+    
+    </body>

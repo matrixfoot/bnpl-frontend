@@ -1,0 +1,87 @@
+<body>
+    <!--set cours de change-->
+<fieldset id="motiffieldset">
+    <legend>Paramêtrage des motifs de rejets</legend>
+    <p>structure fichier: &nbsp; col1:groupe,&nbsp;col2:famille,&nbsp;col3:code,&nbsp;col4:libelle,&nbsp;col5:document,&nbsp;col6:delai</p>
+    <div class="col-6"style="width: 300px"> Charger fichier
+        <input type="file"  #filePicker (change)="onFileChange3($event)" class="form-control" accept=".xls, .xlsx">
+        <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+    </div>
+    <!-- <form [formGroup]="motifform">               
+      <div class="searchbar">      
+       <input class="search_input" id="dateinf"formControlName="dateinf"type="date"  placeholder="Chercher par Email">
+      </div>
+      <div class="searchbar">      
+        <input class="search_input" id="datesup"formControlName="datesup"type="date"  placeholder="Chercher par Email">
+      </div>
+      <div class="searchbar"> 
+         <a class="search_icon"(click)="filtercours()" style="cursor: pointer;"> <i class="fa fa-search"></i></a>  
+      </div>
+      <button class="btn btn-primary" (click)="affichertout()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Afficher tout</button>
+    </form> -->
+   
+    <table class="table table-striped" id="relevejointsection" [formGroup]="motifform">
+      <thead>
+        <tr> 
+            <th scope="col">Groupe</th>
+            <th scope="col">Famille</th>
+            <th scope="col">Code</th>
+            <th scope="col">Motif</th>
+            <th scope="col">document</th>
+            <th scope="col">delai</th>
+        </tr>
+        </thead>
+        <tbody formArrayName="ammounts2">
+            <tr *ngFor="let ammount of ammountControls2; let i = index;"[formGroupName]="i">
+              <td>
+                <div class="col-6">
+                    <input type="text"class="form-control"formControlName="groupe"placeholder="groupe"/>
+                </div>
+               </td>
+               <td>
+                    <input type="text"class="form-control"formControlName="famille"placeholder="famille"/>
+               </td>
+               <td>
+                <div class="col-6">
+                    <input type="text"class="form-control"formControlName="code"placeholder="code"/>
+                </div>
+               </td>
+               <td>
+                  <textarea name="" id="" cols="30" rows="2"type="text"class="form-control"formControlName="motif"placeholder="motif"></textarea>
+               </td>
+               <td>
+                <div class="col-6">
+                  <div class="form-group">
+                      <select  class="input-field" placeholder="Entrer regime impot" id="activity" style="width: 150px;"formControlName="contientfichier" name="contientfichier" >
+                        <option value="Oui">Oui</option>
+                        <option value="Non">Non</option>
+                      </select>
+                  </div>
+                </div>
+               </td>
+               <td>
+                <div class="col-6">
+                    <input type="text"class="form-control"formControlName="delai"placeholder="délai"/>
+                </div>
+               </td>
+              <td>
+                      <div>
+                      <button type="button" class="btn btn-danger btn-sm" (click)="removeammount2(i)"><span><i class="fa fa-minus-circle"></i></span></button>   
+                      </div>
+              </td>      
+            </tr>
+            <tr>
+                <td colspan="5"></td>
+                <td>
+                    <div>
+                    <button type="button" class="btn btn-primary mb-2" (click)="addammount2()"><span><i class="fa fa-plus-circle"></i></span></button>   
+                    </div>
+                   </td>
+            </tr>
+        </tbody>
+        <div class="text-right">
+          <button class="btn btn-success" (click)="submit()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Valider</button>
+        </div>
+        </table>
+  </fieldset>
+</body>

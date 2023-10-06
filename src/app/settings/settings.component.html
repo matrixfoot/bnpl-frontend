@@ -1,0 +1,269 @@
+<div class="container-fluid" *ngIf="currentUser.role=='admin'">
+ <!-- <h2><a routerLink="calendar-fiscality" *ngIf="currentUser.role=='admin'"routerLinkActive="active"> Gestion calendrier fiscale</a></h2>
+ 
+  <h2 style="text-align: center;">Paramêtrage des actualités</h2>
+<div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+
+        
+        
+    <table class="table table-striped">
+      <thead>
+      <tr>
+  
+        
+        <th scope="col">Titre</th>
+        <th scope="col">Commentaire</th>
+        <th scope="col">rang</th>
+        <th scope="col">Document joint</th>
+        <th scope="col">Consultation</th>
+        <th scope="col">Modification</th>
+        <th scope="col">Suppression</th>
+
+        
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let carousel of actualites">
+  
+        
+        <td>{{carousel.titre}}</td>
+        <td>{{carousel.commentaire}}</td>
+        <td>{{carousel.rang}}</td>
+        <td><a href="{{carousel.ficheUrl}}" target="_blank">Aperçu document joint</a></td>
+        <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="onDelete(carousel._id)">Supprimer</button></td>          
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2 style="text-align: center;">Paramêtrage des tarifs</h2>
+  <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+
+        
+        
+    <table class="table table-striped">
+      <thead>
+      <tr>
+  
+        
+        <th scope="col">Type tarif</th>
+        <th scope="col">Date début</th>
+        <th scope="col">Date fin</th>
+        <th scope="col">Nature utilisateur</th>
+        <th scope="col">Nature activité</th>
+        <th scope="col">Activité</th>
+        <th scope="col">Sous-activité</th>
+        <th scope="col">Régime impôt</th>
+        <th scope="col">Prix</th>
+        
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let carousel of tarifs">
+        <td>{{carousel.tarifs[0].type}}</td>
+        <td>{{carousel.tarifs[0].debut}}</td>
+        <td>{{carousel.tarifs[0].fin}}</td>
+        <td>{{carousel.tarifs[0].nature}}</td>
+        <td>{{carousel.tarifs[0].natureactivite}}</td>
+        <td>{{carousel.tarifs[0].activite}}</td>
+        <td>{{carousel.tarifs[0].sousactivite}}</td>
+        <td>{{carousel.tarifs[0].impot}}</td>
+        <td>{{carousel.tarifs[0].prix}}</td>
+        <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="onDelete(carousel._id)">Supprimer</button></td>          
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <h2 style="text-align: center;">Paramêtrage des relations</h2>
+  <button nbButton outline status="danger"*ngIf="currentUser.role=='admin'" (click)="deleteall()" class="btn btn-danger">Supprimer Tous</button>
+  <div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 200px;">
+  
+          
+          
+      <table class="table table-striped">
+        <thead>
+        <tr>
+    
+          
+          <th scope="col">Prénom</th>
+          <th scope="col">Nom</th>
+          <th scope="col">mobile</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let relation of relations">
+    
+          
+          <td>{{relation.firstname}}</td>
+          <td>{{relation.lastname}}</td>
+          <td>{{relation.mobile}}</td>
+          <td><button type="button" class="btn btn-success" (click)="getNavigation('view-relation',relation._id)">Consulter</button></td>
+          <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-relation',relation._id)">Modifier</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="onDelete(relation._id)">Supprimer</button></td>          
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  <div class="input-container" id="Check1">
+    <label for="myCheck1">Afficher le formulaire d'ajouts d'actualités</label>
+    <input type="checkbox" id="myCheck1" (click)="myFunction1()">
+  </div>
+  <div id="bodycontainer">
+      
+    
+
+    <div class="container-fluid"> 
+     
+    
+  <form  [formGroup]="carouselform">
+      <h2>Formulaire d'ajouts d'actualités</h2>
+     
+      
+      
+  
+        <div title="indiquer titre actualité"class="input-container">
+          <input type="text" class="form-control" formControlName="titre" id="titre" placeholder=" Entrez titre">
+        </div> 
+        <div title="indiquer commentaire"class="input-container">
+          <input type="text" class="form-control" formControlName="commentaire" id="commentaire" placeholder=" Entrez commentaire">
+        </div> 
+         <div title="indiquer description"class="input-container">
+          <textarea  class="form-control" rows="10" cols="50"id="description" formControlName="description"placeholder="Entrez description"></textarea>
+        </div>
+        <div title="indiquer rang"class="input-container">
+          <input type="number" class="form-control" formControlName="rang" id="rang" placeholder=" Entrez rang">
+        </div> 
+        <div class="form-group">
+          <label for="inputCV">Attacher votre document joint</label>                   
+         <input type="file"  #filePicker (change)="onImagePick($event)" class="form-control" accept="application/pdf">
+         <div class="image-preview" *ngIf="imagePreview">
+           <img [src]="imagePreview" alt="">
+         </div>
+         <p class="text-success" *ngIf="fileUploaded">Fichier chargé !</p>
+        
+     </div>
+       
+      
+    
+      <button class="btn btn-success" (click)="saveactualite()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Ajouter Actualité</button>
+    </form>
+    <p>{{ errormsg }}</p>
+    
+  </div>
+  </div>-->  
+  <!-- add multiple users -->
+  <div class="input-container" id="Check2">
+    <label for="myCheck1">Afficher le formulaire d'ajouts d'utilisateurs</label>
+    <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+  </div>
+  <div id="bodycontainer2">
+      
+    
+
+    <div class="container-fluid"> 
+     
+    
+      <fieldset>
+        <legend> Insérer plusieurs utlisateurs</legend>
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label"> Charger document</label>
+            <div class="col-sm-12">
+              <input type="file"  class="form-control inputFile" accept=".xls, .xlsx"(change)="onFileChange($event);">
+            </div>
+        </div>
+        <button class="btn btn-success" (click)="afficher()"> <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider</button>
+      </fieldset>
+    <p>{{ errormsg }}</p>
+    
+  </div>
+  </div>
+ <!--add habilitations--> 
+  <div class="input-container" id="Check3">
+    <label for="myCheck3">Afficher le formulaire d'ajouts des habilitations</label>
+    <input type="checkbox" id="myCheck3" (click)="myFunction3()">
+  </div>
+  <div id="bodycontainer3">
+    <div class="container-fluid"> 
+        <fieldset >
+         <legend>Habilitations</legend>
+         <table class="table table-striped" id="factureachatsection" [formGroup]="habilitationform">
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>intitulé</th>
+  </tr>
+</thead>
+<tbody formArrayName="ammounts">
+<tr *ngFor="let ammount of ammountControls; let i = index;"[formGroupName]="i">
+<td>
+  <div class="col-6">
+<input type="text"class="form-control"  formControlName="id" placeholder="ID"/>
+</div>
+</td>
+<td>
+  <div class="col-6">
+<input type="text"class="form-control"  formControlName="intitule" placeholder="intitulé"/>
+</div>
+</td>
+<td>
+  <button type="button" class="hidden" (click)="removeammount(i)"><span><i class="fa fa-minus-circle"></i></span></button>
+</td>
+</tr>
+<tr>
+  <td colspan="2"> 
+    <button type="button" class="btn btn-success" (click)="addammount()"><span><i class="fa fa-plus-circle"></i></span></button>
+  </td>
+</tr>
+</tbody>
+        </table>
+<button class="btn btn-primary" (click)="savehabilitation()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Sauvegarder</button>
+</fieldset> 
+  </div>
+  </div>
+    <!--<div class="input-container" id="Check4">
+      <label for="myCheck1">Afficher le formulaire d'ajouts des relations</label>
+      <input type="checkbox" id="myCheck4" (click)="myFunction4()">
+    </div>
+    <div id="bodycontainer4">
+        
+      
+  
+      <div class="container-fluid"> 
+       
+      
+        <fieldset>
+          <legend> Insérer plusieurs relations</legend>
+          <div class="form-group row">
+            <label class="col-sm-12 col-form-label"> Charger document</label>
+              <div class="col-sm-12">
+                <input type="file"  class="form-control inputFile" accept=".xls, .xlsx"(change)="onFileChange2($event);">
+              </div>
+          </div>
+          <button class="btn btn-success" (click)="afficher2()"> <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider</button>
+        </fieldset>
+      <p>{{ errormsg }}</p>
+      
+    </div>
+    </div>
+     <div class="input-container" id="Check5">
+      <label for="myCheck1">Afficher le formulaire d'envoi des sms</label>
+      <input type="checkbox" id="myCheck5" (click)="myFunction5()">
+    </div>
+    <div id="bodycontainer5">
+      <div class="container-fluid"> 
+        <form  [formGroup]="smsform">
+            <h2>Formulaire d'envoi des sms</h2>
+               <div title="indiquer description"class="input-container">
+                <textarea  class="form-control" rows="10"maxlength="157" cols="50"id="description" formControlName="description"placeholder="Entrez description"></textarea>
+              </div>
+            <button class="btn btn-success" (click)="sendsms()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Envoyer SMS</button>
+          </form>
+          <p>{{ errormsg }}</p>
+          
+        </div>
+    </div>-->
+  
+</div>

@@ -1,0 +1,623 @@
+<head>
+ 
+</head>
+<body>
+  <!--add tarifs-->
+  <div class="input-container" id="Check2">
+    <label for="myCheck2" style="font-size: 24px;">Afficher le formulaire de paramêtrage comptable</label>
+    <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+  </div>
+  <div id="bodycontainer2">
+    <div class="container-fluid"> 
+        <fieldset >
+         <legend>Paramêtrage comptable</legend>
+         <mat-tab-group (selectedTabChange)="onTabClick($event)">
+          <mat-tab label="Edition note honoraire">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Edition note honoraire</div>
+          </ng-template>
+          <table class="table table-striped" id="editionnotesection" [formGroup]="editionnoteform">
+            <thead>
+            <tr>            
+            <th>journal</th> 
+            <th>cptedt</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                 <td>
+                  <input type="text" class="form-control" formControlName="journal" placeholder="Journal"/>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptedt" placeholder="compte DT"/>
+                 </td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th>Taux TVA</th>
+                <th>cpteht</th>
+                <th>cptetva</th>
+              </tr>
+            </thead>
+            <tbody formArrayName="ammounts">
+              <tr *ngFor="let ammount of ammountControls; let i = index;"[formGroupName]="i">
+                <td>
+                  <select  class="input-field" placeholder="Entrer taux TVA" id="activity" style="width: 50px;"formControlName="taux" name="taux" (change)="verifyfutur($event,i)">
+                    
+                    <option *ngFor="let tau of taux" [value]="tau">
+                      {{tau}}
+                  </option>
+                  </select>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cpteht" placeholder="compte hors taxe"/>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptetva" placeholder="compte TVA"/>
+                 </td>
+                 <td>
+                  <div>
+                  <button type="button" class="btn btn-danger btn-sm"(click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                  </div>
+                 </td>
+              </tr>
+              <tr>
+                <td colspan="15"></td>
+                
+                <td>
+                    <div>
+                    <button type="button" class="btn btn-primary mb-2" (click)="addammount()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th>client</th> 
+                <th>cptettc</th>  
+              </tr>
+            </thead>
+            <tbody formArrayName="ammounts1">
+              <tr *ngFor="let ammount of ammountControls1; let i = index;"[formGroupName]="i">
+                <td>
+                  <select  class="input-field" style="pointer-events: none;" onclick="return false;" onkeydown="return false;"placeholder="Entrer client" id="activity" formControlName="client" name="client" (change)="verifyfutur($event,i)">
+                    
+                    <option *ngFor="let cl of settedclients" [value]="cl.cl">
+                      {{cl.cl}}
+                  </option>
+                  </select>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptettc" placeholder="compte TTC"/>
+                 </td>
+                 <td>
+                  <div>
+                  <button type="button" class="btn btn-danger btn-sm"(click)="removeammount1(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                  </div>
+                 </td>
+              </tr>
+              <tr>
+                <td colspan="15"></td>
+                <td>
+                    <div>
+                    <button type="button" class="btn btn-primary mb-2" (click)="addammount1()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                    </div>
+                </td>
+            </tr>
+            </tbody> 
+            </table>
+          </mat-tab>
+          <mat-tab label="Recette journalière">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Recette journalière</div>
+          </ng-template>
+          <table class="table table-striped" id="editionnotesection" [formGroup]="recetteform">
+            <thead>
+            <tr>            
+            <th>journal</th> 
+            <th>cptedt</th>
+            
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                 <td>
+                  <input type="text" class="form-control" formControlName="journal" placeholder="Journal"/>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptedt" placeholder="compte DT"/>
+                 </td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>
+                <th>Taux TVA</th>
+                <th>cpteht</th>
+                <th>cptetva</th>
+                <th>cptettc</th>
+
+              </tr>
+            </thead>
+            <tbody formArrayName="ammounts2">
+              <tr *ngFor="let ammount of ammountControls2; let i = index;"[formGroupName]="i">
+                <td>
+                  <select  class="input-field"placeholder="Entrer taux TVA" id="activity" style="width: 50px;"formControlName="taux" name="taux" (change)="verifyfutur($event,i)">
+                    
+                    <option *ngFor="let tau of taux" [value]="tau">
+                      {{tau}}
+                  </option>
+                  </select>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cpteht" placeholder="compte hors taxe"/>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptetva" placeholder="compte TVA"/>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptettc" placeholder="compte TTC"/>
+                 </td>
+                 <td>
+                  <div>
+                  <button type="button" class="btn btn-danger btn-sm"(click)="removeammount2(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                  </div>
+                 </td>
+              </tr>
+              <tr>
+                <td colspan="15"></td>
+                
+                <td>
+                    <div>
+                    <button type="button" class="btn btn-primary mb-2" (click)="addammount2()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+            </table>
+          </mat-tab>
+          <mat-tab label="Achat">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Achat</div>
+          </ng-template>
+          <table class="table table-striped" id="editionnotesection" [formGroup]="achatform">
+            <thead>
+            <tr>            
+            <th>journal</th> 
+            <th>cptedt</th>
+            <th>cptetva</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr>
+                 <td>
+                  <input type="text" class="form-control" formControlName="journal" placeholder="Journal"/>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptedt" placeholder="compte DT"/>
+                 </td>
+                 <td>
+                  <input type="text" class="form-control" formControlName="cptetva" placeholder="compte TVA"/>
+                 </td>
+              </tr>
+            </tbody>
+            <thead>
+              <tr>            
+              <th>fournisseur</th> 
+              <th>cptettc</th>
+              </tr>
+              </thead>
+              <tbody formArrayName="ammounts3">
+                <tr *ngFor="let ammount of ammountControls3; let i = index;"[formGroupName]="i">
+                  <td>
+                    <select  class="input-field" style="pointer-events: none;" onclick="return false;" onkeydown="return false;"placeholder="Entrer fournisseur" id="activity" formControlName="fournisseur" name="fournisseur" >
+                      
+                      <option *ngFor="let fou of settedfournisseurs" [value]="fou.four">
+                        {{fou.four}}
+                    </option>
+                    </select>
+                   </td>
+                   <td>
+                    <input type="text" class="form-control" formControlName="cptettc" placeholder="compte TTC"/>
+                   </td>
+                   <td>
+                    <div>
+                    <button type="button" class="btn btn-danger btn-sm"(click)="removeammount3(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                    </div>
+                   </td>
+                </tr>
+                <tr>
+                  <td colspan="15"></td>
+                
+                  <td>
+                      <div>
+                      <button type="button" class="btn btn-primary mb-2" (click)="addammount3()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                      </div>
+                  </td>
+              </tr>
+              </tbody>
+              <thead>
+                <tr>            
+                <th>nature achat</th> 
+                <th>cpteht</th>
+                </tr>
+                </thead>
+                <tbody formArrayName="ammounts4">
+                  <tr *ngFor="let ammount of ammountControls4; let i = index;"[formGroupName]="i">
+                    <td>
+                      <select  class="input-field" style="pointer-events: none;" onclick="return false;" onkeydown="return false;"placeholder="Entrer nature" id="activity" formControlName="natureachat" name="natureachat" (change)="verifyfutur($event,i)">
+                        
+                        <option *ngFor="let na of settednatures" [value]="na.nat">
+                          {{na.nat}}
+                      </option>
+                      </select>
+                     </td>
+                     <td>
+                      <input type="text" class="form-control" formControlName="cpteht" placeholder="compte HT"/>
+                     </td>
+                     <td>
+                      <div>
+                      <button type="button" class="btn btn-danger btn-sm"(click)="removeammount4(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                      </div>
+                     </td>
+                  </tr>
+                  <tr>
+                    <td colspan="15"></td>
+                    
+                    <td>
+                        <div>
+                        <button type="button" class="btn btn-primary mb-2" (click)="addammount4()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+          </mat-tab>
+          <mat-tab label="Relevé manuel">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Relevé manuel</div>
+          </ng-template>
+          <table class="table table-striped" id="relevesection" [formGroup]="releveform">
+            
+            <thead>
+              <tr>  
+              <th>Banque</th>           
+              <th>numero de compte</th> 
+              <th>cpte</th>
+              <th>journal</th>
+              </tr>
+              </thead>
+              <tbody formArrayName="ammounts5">
+                <tr *ngFor="let ammount of ammountControls5; let i = index;"[formGroupName]="i">
+                  <td>
+                    <input type="text" class="form-control" formControlName="banque" placeholder="banque"/>
+                   </td>
+                  <td>
+                    <select  class="input-field" style="pointer-events: none;" onclick="return false;" onkeydown="return false;"  placeholder="Entrer numero de compte" id="activity" formControlName="numerocompte" name="numerocompte" >
+                      
+                      <option *ngFor="let nu of settednumeros" [value]="nu.num">
+                        {{nu.num}}
+                    </option>
+                    </select>
+                   </td>
+                   <td>
+                    <input type="text" class="form-control" formControlName="cpte" placeholder="compte"/>
+                   </td>
+                   <td>
+                    <input type="text" class="form-control" formControlName="journalmanuel" placeholder="compte"/>
+                   </td>
+                   <td>
+                    <div>
+                    <button type="button" class="btn btn-danger btn-sm"(click)="removeammount5(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                    </div>
+                   </td>
+                </tr>
+                <tr>
+                  <td colspan="15"></td>              
+                  <td>
+                      <div>
+                      <button type="button" class="btn btn-primary mb-2" (click)="addammount5()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                      </div>
+                  </td>
+              </tr>
+              </tbody>
+              <thead>
+                <tr>            
+                <th>objet opération</th> 
+                <th>cpte</th>
+                </tr>
+                </thead>
+                <tbody formArrayName="ammounts6">
+                  <tr *ngFor="let ammount of ammountControls6; let i = index;"[formGroupName]="i">
+                    <td>
+                      <select  class="input-field" style="pointer-events: none;" onclick="return false;" onkeydown="return false;" placeholder="Entrer objet opération" id="activity" formControlName="objet" name="objet" (change)="verifyfutur($event,i)">
+                        
+                        <option *ngFor="let na of settedobjets" [value]="na">
+                          {{na}}
+                      </option>
+                      </select>
+                     </td>
+                     <td>
+                      <input type="text" class="form-control" formControlName="cpte" placeholder="compte"/>
+                     </td>
+                     
+                     <td>
+                      <div>
+                      <button type="button" class="btn btn-danger btn-sm"(click)="removeammount6(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                      </div>
+                     </td>
+                  </tr>
+                  <tr>
+                    <td colspan="15"></td>
+                    
+                    <td>
+                        <div>
+                        <button type="button" class="btn btn-primary mb-2" (click)="addammount6()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+          </mat-tab>
+          <mat-tab label="Relevé joint">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Relevé joint</div>
+          </ng-template>
+          </mat-tab>
+          <mat-tab label="Salaire">
+            <ng-template mat-tab-label style="padding: 3px;">
+              <div class="col" style="margin-left: 20px;">Salaire</div>
+          </ng-template>
+          </mat-tab>
+          </mat-tab-group>
+         <!--<table class="table table-striped" id="editionnotesection" [formGroup]="comptaform">
+          <thead>
+          <tr>            
+          <th>Type paramêtrage</th>
+          <th>Taux TVA</th>
+          <th>journal</th> 
+          <th>client</th> 
+          <th>cptettc</th>
+          <th>fournisseur</th>
+          <th>nature achat</th> 
+          <th>cpteht</th>
+          <th>cptetva</th>
+          <th>cptedt</th>
+          <th>cptedtdebit</th>
+          </tr>
+          </thead>
+          <tbody formArrayName="ammounts">
+            <tr *ngFor="let ammount of ammountControls; let i = index;"[formGroupName]="i">
+              <td>
+                <select  class="input-field" placeholder="Entrer type tarif" id="activity" style="width: 150px;"formControlName="type" name="type" (change)="verifyfutur($event,i)">
+                  
+                  <option *ngFor="let typ of type" [value]="typ">
+                    {{typ}}
+                </option>
+                </select>
+               </td>
+               <td>
+                <select  class="input-field" placeholder="Entrer taux TVA" id="activity" style="width: 50px;"formControlName="taux" name="taux" (change)="verifyfutur($event,i)">
+                  
+                  <option *ngFor="let tau of taux" [value]="tau">
+                    {{tau}}
+                </option>
+                </select>
+               </td>
+               <td>
+                <input type="text" class="form-control" formControlName="journal" placeholder="Journal"/>
+               </td>
+               <td>
+                <select  class="input-field" placeholder="Entrer client" id="activity" formControlName="client" name="client" (change)="verifyfutur($event,i)">
+                  
+                  <option *ngFor="let cl of settedclients" [value]="cl.cl">
+                    {{cl.cl}}
+                </option>
+                </select>
+               </td>
+               <td>
+                <input type="text" class="form-control" formControlName="cptettc" placeholder="compte TTC"/>
+               </td>
+               <td>
+                <select  class="input-field" placeholder="Entrer fournisseur" id="activity" formControlName="fournisseur" name="fournisseur" >
+                  
+                  <option *ngFor="let fou of settedfournisseurs" [value]="fou.four">
+                    {{fou.four}}
+                </option>
+                </select>
+               </td>
+               <td>
+                <select  class="input-field" placeholder="Entrer nature" id="activity" formControlName="natureachat" name="natureachat" (change)="verifyfutur($event,i)">
+                  
+                  <option *ngFor="let na of settednatures" [value]="na.nat">
+                    {{na.nat}}
+                </option>
+                </select>
+               </td>
+               <td>
+                <input type="text" class="form-control" formControlName="cpteht" placeholder="compte hors taxe"/>
+               </td>
+               <td>
+                <input type="text" class="form-control" formControlName="cptetva" placeholder="compte TVA"/>
+               </td>
+               <td>
+                <input type="text" class="form-control" formControlName="cptedt" placeholder="compte DT"/>
+               </td>
+               <td>
+                <input type="text" class="form-control" formControlName="cptedtdebit" placeholder="compte DT debit"/>
+               </td>                             
+            </tr>
+            <tr>
+              <td colspan="15"></td>
+              <td>
+                <div>
+                <button type="button" class="btn btn-danger btn-sm"(click)="removeammount(i)"><span><i class="glyphicon glyphicon-minus"></i></span></button>   
+                </div>
+               </td>
+              <td>
+                  <div>
+                  <button type="button" class="btn btn-primary mb-2" (click)="addammount()"><span><i class="glyphicon glyphicon-plus"></i></span></button>   
+                  </div>
+              </td>
+          </tr>
+          </tbody>
+          </table>-->
+          </fieldset>
+       <button class="btn btn-success" (click)="saveparam()"><i class="fa fa-refresh fa-spin"*ngIf="loading"></i>Valider</button>
+  </div>
+  </div>
+
+<div class="bodycontainer">
+<div id="loader" *ngIf="loading"></div>
+<div class="container-fluid" *ngIf="!loading" id="modifadmin">
+<form  [formGroup]="userForm">
+  <h2>Formulaire De Modification Des Données Utilisateurs</h2>
+  <table class="table table-striped">
+    <tbody>
+      <tr> 
+        <td>
+          <div title="indiquer votre type utilisateur" class="input-container">
+            <label for="fiscalmat"> Type utilisateur:</label>
+            <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+        <select  class="input-field"  placeholder="Entrer Votre Type Utilisateur"id="usertype" formControlName="usertype" name="usertype" >
+        <option hidden >Entrer Votre Type Utilisateur</option>
+        <option value="Client">Client</option>
+        <option value="Collaborateur">Collaborateur</option>
+        <option value="Candidat">Candidat</option>
+        </select>
+        </div>
+        </td>
+        <td>
+          <div title="indiquer votre type utilisateur" class="input-container"*ngIf="user.usertype != 'Candidat'">
+            <label class="col-md-4 control-label">Nature utilisateur</label>
+              <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+                <select  class="input-field" placeholder="Entrer nature utilisateur" id="nature" formControlName="nature" name="nature" >
+                  <option hidden >Entrer la nature de l'utilisateur</option>
+                  <option value="Personne Physique">Personne Physique</option>
+                  <option value="Personne Morale">Personne Morale</option>
+                </select>
+          </div>
+        </td>
+        <td>
+          <div class="form-group" *ngIf="userForm.controls['nature'].value=='Personne Morale'">
+            <label class="col-md-4 control-label">Raison Sociale</label>
+            <div class="col-md-8 inputGroupContainer">
+              <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input class="input-field" type="text" placeholder="Modifier Votre Raison Sociale" id="raisonsociale" formControlName="raisonsociale">
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div title="indiquer votre civilite"class="input-container">
+            <label for="fiscalmat">Civilité:</label>    
+              <div class="gender_icon"><i class="fa fa-male" ></i> <i class="fa fa-female"></i></div>
+        <select  class="input-field" placeholder="Entrer Votre Nom" id="civilite" formControlName="civilite" name="civilite" >
+          <option hidden >Modifier Votre Civilité</option>
+          <option value="Monsieur">Monsieur</option>
+          <option value="Madame">Madame</option>
+          <option value="Mademoiselle">Mademoiselle</option>
+        </select>
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label class="col-md-4 control-label"*ngIf="userForm.controls['nature'].value=='Personne Physique'">Nom Utilisateur</label>
+            <label class="col-md-4 control-label"*ngIf="userForm.controls['nature'].value=='Personne Morale'">Nom du reponsable de l'entité</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input class="input-field" type="text" placeholder="Modifier Votre Nom" id="lastname" formControlName="lastname" name="lastname">
+              </div>
+            </div>
+         </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <label class="col-md-4 control-label"*ngIf="userForm.controls['nature'].value=='Personne Physique'">Prénom Utilisateur</label>
+            <label class="col-md-4 control-label"*ngIf="userForm.controls['nature'].value=='Personne Morale'">Prénom du reponsable de l'entité</label>
+            <div class="col-md-8 inputGroupContainer">
+               <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
+                <input class="input-field" type="text" placeholder="Modifier Votre Prenom" id="firstname" formControlName="firstname">
+              </div>
+            </div>
+         </div>
+        </td>
+      </tr>
+    <tr>
+      <td colspan="2">
+        <div class="form-group">
+          <label class="col-md-4 control-label">Email</label>
+          <div class="col-md-8 inputGroupContainer">
+             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+              <input class="input-field" type="email" placeholder="Entrez Votre Email" id="email" formControlName="email" >
+            </div>
+          </div>
+       </div>
+      </td>
+      <td>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Numéro Mobile</label>
+          <div class="col-md-8 inputGroupContainer">
+             <div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+              <input class="input-field" type="text" placeholder="Entrez Votre Numéro Mobile" id="mobile" formControlName="mobile" >
+            </div>
+          </div>
+       </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div title="indiquer votre role"class="input-container">
+          <label for="fiscalmat">Role:</label>    
+          <i class="fa fa-fort-awesome icon" ></i> 
+      <input class="input-field" type="text" [(ngModel)]="roleValue" id="role" formControlName="role" name="role" list="roles" />
+      <datalist id="roles">
+      <option *ngFor="let user of users" [value]="user.role" >{{user.role}}</option>
+      </datalist>
+      </div>
+      </td>
+      <td>
+        <div title="attribuer role superviseur"class="input-container">
+          <label for="fiscalmat"> Possède role superviseur:</label>
+          <i class="fa fa-fort-awesome icon" ></i> 
+          <select  class="input-field"  placeholder="Possède role superviseur"id="rolesuperviseur" formControlName="rolesuperviseur" name="rolesuperviseur" >
+            <option hidden >Entrer Votre access compta</option>
+            <option value="Autorisé">Autorisé</option>
+            <option value="Non Autorisé">Non Autorisé</option>
+            </select>
+        </div>
+      </td>
+      <td>
+        <div title="attribuer acces aux utilisateurs"class="input-container">
+          <label for="fiscalmat"> Droit à la comptabilité:</label>
+          <i class="fa fa-fort-awesome icon" ></i> 
+          <select  class="input-field"  placeholder="Entrer Votre accès au compta"id="droitcompta" formControlName="droitcompta" name="droitcompta" >
+            <option hidden >Entrer Votre access compta</option>
+            <option value="Autorisé">Autorisé</option>
+            <option value="Non Autorisé">Non Autorisé</option>
+            </select>
+        </div>
+      </td>
+    </tr> 
+    <tr>
+      <td colspan="3">
+        <div title="indiquer votre role"class="input-container">
+          <label for="fiscalmat">Tarif spécial:</label>    
+          <i class="fa fa-fort-awesome icon" ></i> 
+          <input class="input-field" type="text" placeholder="tarif spécial" id="tarif" formControlName="tarif">
+        </div>
+      </td>
+    </tr> 
+   </tbody>
+</table> 
+  <button class="btn btn-success" (click)="onSubmit()" >Envoyer Modification</button>
+</form>
+<p>{{ errorMessage }}</p>
+<div class="alert alert-success" *ngIf="isSuccessful">
+  Modificaion effectuée avec succès!!
+</div>
+</div>
+</div>
+</body>

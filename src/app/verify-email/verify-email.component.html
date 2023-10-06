@@ -1,0 +1,48 @@
+
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+</head>
+<body>
+    
+
+<div class="team-section">
+<div class="container-fluid">
+<div class="loader" *ngIf="emailStatus == EmailStatus.Verifying"></div>
+<div class="row">
+	<div class="col-lg-12" >
+	  <div class="team-member" *ngIf="emailStatus == EmailStatus.Success">
+		<div class="icon-box-success">
+            <i class="material-icons">&#xE876;</i>
+        </div>	         
+		<h3>{{successmsg}}</h3>
+		<hr>
+		<button  class="button-green button5" (click)="onlogin()">Connexion</button>
+		
+	  </div>
+	</div>
+	
+  </div>
+
+  <div class="row">
+	<div class="col-lg-12" >
+	  <div class="team-member" *ngIf="emailStatus == EmailStatus.Failed">
+		<div class="icon-box-failure">
+            <i class="material-icons">&#xE5CD;</i>
+        </div>         
+		<h3>Vérification échouée, vous pouvez passer par le lien ci-desous</h3>
+		<hr>
+		
+		<button  class="button-red button5" (click)="onforgot()">Mot de passe oublié</button>
+		
+	  </div>
+	</div>
+	
+  </div>
+</div>
+</div>
+</body>
+
+

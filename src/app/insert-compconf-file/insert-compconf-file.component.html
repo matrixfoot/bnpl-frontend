@@ -1,0 +1,183 @@
+<div class="container-fluid">
+    <!-- add compconf -->
+    <div class="input-container" id="Check1">
+      <label for="myCheck1">Afficher le formulaire d'ajout de compconf</label>
+      <input type="checkbox" id="myCheck1" (click)="myFunction1()">
+    </div>
+    <div id="bodycontainer1">
+      <div class="container-fluid"> 
+        <fieldset>
+          <legend> Insérer fichier compconf</legend>
+          <div class="form-group row">
+            <label class="col-sm-12 col-form-label"> Charger document</label>
+              <div class="col-sm-12">
+                <input type="file"  class="form-control inputFile" (change)="onFileChange2($event);">
+              </div>
+          </div>
+        </fieldset>
+      <p>{{ errormsg }}</p> 
+    </div>
+    </div>
+       <!-- add work GAB -->
+       <div class="input-container" id="Check2">
+        <label for="myCheck2">Afficher le formulaire d'ajout de work gab</label>
+        <input type="checkbox" id="myCheck2" (click)="myFunction2()">
+      </div>
+      <div id="bodycontainer2">
+        <div class="container-fluid"> 
+          <fieldset>
+            <legend> Insérer fichier work GAB</legend>
+            <div class="form-group row">
+              <label class="col-sm-12 col-form-label"> Charger document</label>
+                <div class="col-sm-12">
+                  <input type="file"  class="form-control inputFile" (change)="onFileChange3($event);">
+                </div>
+            </div>
+          </fieldset>
+        <p>{{ errormsg }}</p> 
+      </div>
+      </div>
+             <!-- add work POS -->
+             <div class="input-container" id="Check3">
+              <label for="myCheck3">Afficher le formulaire d'ajout de work pos</label>
+              <input type="checkbox" id="myCheck3" (click)="myFunction3()">
+            </div>
+            <div id="bodycontainer3">
+              <div class="container-fluid"> 
+                <fieldset>
+                  <legend> Insérer fichier work POS</legend>
+                  <div class="form-group row">
+                    <label class="col-sm-12 col-form-label"> Charger document</label>
+                      <div class="col-sm-12">
+                        <input type="file"  class="form-control inputFile" (change)="onFileChange4($event);">
+                      </div>
+                  </div>
+                </fieldset>
+              <p>{{ errormsg }}</p> 
+            </div>
+            </div>
+                 <!-- add work SMS -->
+                 <div class="input-container" id="Check4">
+                  <label for="myCheck4">Afficher le formulaire d'ajout de work sms</label>
+                  <input type="checkbox" id="myCheck4" (click)="myFunction4()">
+                </div>
+                <div id="bodycontainer4">
+                  <div class="container-fluid"> 
+                    <fieldset>
+                      <legend> Insérer fichier work sms</legend>
+                      <div class="form-group row">
+                        <label class="col-sm-12 col-form-label"> Charger document</label>
+                          <div class="col-sm-12">
+                            <input type="file"  class="form-control inputFile" (change)="onFileChange5($event);">
+                          </div>
+                      </div>
+                    </fieldset>
+                  <p>{{ errormsg }}</p> 
+                </div>
+                </div>
+                <button class="btn btn-success" (click)="save()"*ngIf="currentItemsToShow.length>0||currentItemsToShow2.length>0||currentItemsToShow3.length>0||currentItemsToShow4.length>0"> <i class="fa fa-refresh fa-spin" *ngIf="loading"></i>Valider</button>
+  <!--<div class="users-grid"  style="overflow-x:auto;overflow-y: auto;height: 600px;">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col" [style.top]="inverseOfTranslation">MERCHANT IDENTIFICATION</th>
+        <th scope="col" [style.top]="inverseOfTranslation">BATCH IDENTIFICATION</th>
+        <th scope="col" [style.top]="inverseOfTranslation">INVOICE NUMBER</th>
+        <th scope="col" [style.top]="inverseOfTranslation">CARD HOLDER NUMBER</th>
+        <th scope="col" [style.top]="inverseOfTranslation">MERCHANT SECTOR</th>
+        <th scope="col" [style.top]="inverseOfTranslation">CHANNEL TRANSACTION ID</th>
+        <th scope="col" [style.top]="inverseOfTranslation">OPERATION CODE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">TRANSACTION CODE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">TRANSACTION AMOUNT</th>
+        <th scope="col" [style.top]="inverseOfTranslation">CARD EXPIRY DATE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">PROCESSING DATE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">TRANSACTION DATE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">AUTHORIZATION CODE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">REMITTANCE DATE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">MERCHANT CATEGORIE CODE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">FILLER</th>
+        <th scope="col" [style.top]="inverseOfTranslation">ACQUIRER BANK IDENTIFICATION</th>
+        <th scope="col" [style.top]="inverseOfTranslation">LOCAL CARD SYSTEM NETWORK</th>
+        <th scope="col" [style.top]="inverseOfTranslation">ISSUER BANK IDENTIFICATION</th>
+        <th scope="col" [style.top]="inverseOfTranslation">ACQUIRER REFERENCE NUMBER</th>
+        <th scope="col" [style.top]="inverseOfTranslation">TRANSACTION ORDER USAGE CODE</th>
+        <th scope="col" [style.top]="inverseOfTranslation">MERCHANT NAME</th>
+        <th scope="col" [style.top]="inverseOfTranslation">SETTLEMENT AMOUNT</th>
+        <th scope="col" [style.top]="inverseOfTranslation">TRANSACTION TIME</th>
+        <th scope="col" [style.top]="inverseOfTranslation">FILLER2</th>
+        <th scope="col" [style.top]="inverseOfTranslation">END OF RECORD</th>
+          </tr>
+      </thead>
+      <h4 style="text-align: center;">Liste des transactions filtrée</h4>
+      <tbody *ngIf="filtreditems.length>0">
+        <tr *ngFor="let comp of filtreditems">
+          <td>{{comp.MERCHANTIDENTIFICATION}}</td>
+          <td>{{comp.BATCHIDENTIFICATION}}</td>
+          <td>{{comp.INVOICENUMBER}}</td>
+          <td>{{comp.CARDHOLDERNUMBER}}</td>
+          <td>{{comp.MERCHANTSECTOR}}</td>
+          <td>{{comp.CHANNELTRANSACTIONID}}</td>
+          <td>{{comp.OPERATIONCODE}}</td>
+          <td>{{comp.TRANSACTIONCODE}}</td>
+          <td>{{comp.TRANSACTIONAMOUNT}}</td>
+          <td>{{comp.CARDEXPIRYDATE}}</td>
+          <td>{{comp.PROCESSINGDATE}}</td>
+          <td>{{comp.TRANSACTIONDATE}}</td>
+          <td>{{comp.AUTHORIZATIONCODE}}</td>
+          <td>{{comp.REMITTANCEDATE}}</td>
+          <td>{{comp.MERCHANTCATEGORIECODE}}</td>
+          <td>{{comp.FILLER}}</td>
+          <td>{{comp.ACQUIRERBANKIDENTIFICATION}}</td>
+          <td>{{comp.LOCALCARDSYSTEMNETWORK}}</td>
+          <td>{{comp.ISSUERBANKIDENTIFICATION}}</td>
+          <td>{{comp.ACQUIRERREFERENCENUMBER}}</td>
+          <td>{{comp.TRANSACTIONORDERUSAGECODE}}</td>
+          <td>{{comp.MERCHANTNAME}}</td>
+          <td>{{comp.SETTLEMENTAMOUNT}}</td>
+          <td>{{comp.FILLER2}}</td>
+          <td>{{comp.ENDOFRECORD}}</td>
+          <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
+          <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="onDelete(carousel._id)">Supprimer</button></td>          
+        </tr>
+        </tbody>
+        <br>
+        <br>
+        <br>
+        <br>
+        <h4 style="text-align: center;">Liste des transactions globale</h4>
+      <tbody *ngIf="currentItemsToShow.length>0">
+      <tr *ngFor="let comp of currentItemsToShow">
+        <td>{{comp.MERCHANTIDENTIFICATION}}</td>
+        <td>{{comp.BATCHIDENTIFICATION}}</td>
+        <td>{{comp.INVOICENUMBER}}</td>
+        <td>{{comp.CARDHOLDERNUMBER}}</td>
+        <td>{{comp.MERCHANTSECTOR}}</td>
+        <td>{{comp.CHANNELTRANSACTIONID}}</td>
+        <td>{{comp.OPERATIONCODE}}</td>
+        <td>{{comp.TRANSACTIONCODE}}</td>
+        <td>{{comp.TRANSACTIONAMOUNT}}</td>
+        <td>{{comp.CARDEXPIRYDATE}}</td>
+        <td>{{comp.PROCESSINGDATE}}</td>
+        <td>{{comp.TRANSACTIONDATE}}</td>
+        <td>{{comp.AUTHORIZATIONCODE}}</td>
+        <td>{{comp.REMITTANCEDATE}}</td>
+        <td>{{comp.MERCHANTCATEGORIECODE}}</td>
+        <td>{{comp.FILLER}}</td>
+        <td>{{comp.ACQUIRERBANKIDENTIFICATION}}</td>
+        <td>{{comp.LOCALCARDSYSTEMNETWORK}}</td>
+        <td>{{comp.ISSUERBANKIDENTIFICATION}}</td>
+        <td>{{comp.ACQUIRERREFERENCENUMBER}}</td>
+        <td>{{comp.TRANSACTIONORDERUSAGECODE}}</td>
+        <td>{{comp.MERCHANTNAME}}</td>
+        <td>{{comp.SETTLEMENTAMOUNT}}</td>
+        <td>{{comp.FILLER2}}</td>
+        <td>{{comp.ENDOFRECORD}}</td>
+        <td><button type="button" class="btn btn-success" (click)="getNavigation('view-carousel',carousel._id)">Consulter</button></td>
+        <td><button type="button" class="btn btn-primary" (click)="getNavigation('modify-carousel',carousel._id)">Modifier</button></td>
+        <td><button type="button" class="btn btn-danger" (click)="onDelete(carousel._id)">Supprimer</button></td>          
+      </tr>
+      </tbody>
+    </table>
+  </div>-->
+</div>

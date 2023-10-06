@@ -1,0 +1,38 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+<body>
+  <div class="container-fluid">
+    <div id="loader" *ngIf="loading"></div>
+    <div class="container-fluid" *ngIf="!loading && !isLoggedIn">
+      <div class="card card-container">
+        <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+        <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+        <p id="profile-name" class="profile-name-card"></p>
+        <form class="form-signin" [formGroup]="loginForm" 
+      
+        (ngSubmit)="loginform.valid && onSubmit()"novalidate>
+        <span id="reauth-email" class="reauth-email"></span>
+        <input type="email" id="inputEmail" class="form-control"formControlName="email" placeholder="Login" required autofocus>
+        <input type="password" id="inputPassword" class="form-control"formControlName="password" placeholder="Mot de passe" required>
+        <input type="submit" value="Login" (click)="onLogin()" [disabled]="loginForm.invalid">
+        <div class="bottom-container">
+          <div class="row">
+            <div class="col">
+              <a routerLink="signup" routerLinkActive="active" style="color:white; cursor: pointer;" class="btn">Inscrivez Vous Gratuitement</a>
+            </div>
+            <div class="col">
+              <a  routerLink="forgot-password" routerLinkActive="active"style="color:white;cursor: pointer" class="btn">Mot de Passe Oublié?</a>
+            </div>
+          </div>
+        </div>
+        </form>
+    </div><!-- /card-container -->
+   
+    
+  </div>
+  <div class="alert alert-success" *ngIf="isLoggedIn" routerLink="forgot-password">
+  Bienvenue {{civilite}} {{ firstname}} {{ lastname}}
+  </div>
+</div> 
+    </body>

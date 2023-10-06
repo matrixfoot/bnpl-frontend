@@ -1,0 +1,39 @@
+
+
+  <body>
+
+    <h2 style="text-align: center;">Informations générales</h2>
+    
+    <div class="container-fluid"*ngIf="user">
+      <img src="../../assets/img_avatar.png" *ngIf="civilite=='Monsieur'" else alt="Avatar" style="width:10% ;height:10%">
+      <img src="../../assets/img_avatar2.png" *ngIf="civilite!='Monsieur'" alt="Avatar" style="width:10% ;height:10%">
+      <div class="container-fluid">
+        <h4 >Utilisateur connecté:</h4><hr><h4>{{ user.civilite }} <b>  {{ user.firstname }} {{ user.lastname }}</b></h4> 
+        <h4>Nature utilisateur:<b>  {{ user.nature }}</b></h4>
+        <h4>Crée le(heure GMT):<b>  {{ user.created | customDate}}</b></h4>
+        <h4>Dernière modificationle(heure GMT):<b>  {{ user.updated | customDate}}</b></h4>
+        <h4>Numéro mobile:<b>  {{ user.mobile }}</b></h4>
+        <h4>Type utilisateur:<b *ngIf="user.usertype=='Clientpor'"> Client porteur</b><b *ngIf="user.usertype=='Clientcomm'"> Client commerçant</b><b *ngIf="user.usertype=='Metier'">Métier</b>
+        <b *ngIf="user.usertype=='Agence'">Agence</b></h4>
+        <h4 class="hidden">Fonction:<b>  {{ user.fonction }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientcomm'">Raisonsociale:<b>  {{ user.raisonsociale }}</b></h4>
+        <h4 class="hidden">Secteur:<b>  {{ user.secteur }}</b></h4>
+        <h4 class="hidden">Nomsociete:<b>  {{ user.nomsociete }}</b></h4>
+        <h4>Email:<b>  {{ user.email }}</b></h4>
+        <h4>Code client<b>  {{ user.clientcode }}</b></h4>
+        <h4>code banque:<b>  {{ user.banque }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientpor'||user.usertype=='Clientcomm'">Numéro de compte:<b>  {{ user.compte }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientpor'">Numéro de carte:<b>  {{ user.carte }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientcomm'">Numéro d'affiliation:<b>  {{ user.affiliation }}</b></h4>
+        <h4 *ngIf="user.usertype=='Clientcomm'">Numéro de terminal:<b>  {{ user.terminal }}</b></h4>
+        <h4 *ngIf="user.ficheUrl">Carte d'identification fiscale: <b><a href="{{user.ficheUrl}}" target="_blank">Aperçu CIF</a></b></h4>       
+      </div>
+      <div *ngIf="user.usertype=='Client'"><button type="button" class="btn btn-success" (click)="getNavigation('complete-profil', currentUser.userId)" 
+      *ngIf="!user.natureactivite || user.natureactivite=='Autre/null' || !user.activite || user.activite=='Autre/null'
+      || user.regimefiscalimpot=='Autre/null'|| !user.regimefiscalimpot || !user.matriculefiscale"
+      >Compléter</button></div>
+      <button type="button" class="btn btn-warning" (click)="getNavigation('modify-user', currentUser.userId)">Modifier</button>
+      
+    </div>
+    
+    </body>
